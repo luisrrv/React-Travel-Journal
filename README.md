@@ -6,6 +6,8 @@
   <img src="https://user-images.githubusercontent.com/69304255/173847673-a5fb160e-b587-4263-a5f4-74dfe8107c6d.png" width="250" /> 
 </p>
 
+Check it out at https://luisrrv.github.io/React-Travel-Journal/
+
 <br>
 
 In the project directory, you can run:
