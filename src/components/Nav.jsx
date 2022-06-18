@@ -5,7 +5,7 @@ import { FaGlobeAmericas } from 'react-icons/fa';
 
 const Nav = () => {
   return (
-    <nav>
+    <nav id='nav'>
       <p className='nav-title'><FaGlobeAmericas size={24} /> my travel journal.</p>
     </nav>
   )
