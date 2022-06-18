@@ -86,7 +86,7 @@ nav {
 }
 
 section {
-  padding: 160px;
+  padding: 20px;
 }
 
 .hero {
@@ -259,7 +259,34 @@ section {
   }
 }
 @media (min-width:1800px) {
-  section {
-    padding: 500px;
+  .cards-list {
+    padding: 80px 500px;
+  }
+  .hero {
+    /* padding :160px */
+  }
+}
+@media (min-width:1400px) and (max-width:1799px) {
+  .cards-list {
+    padding: 80px 300px;
+  }
+  .hero {
+    /* padding :160px */
+  }
+}
+@media (min-width:1200px) and (max-width:1399px) {
+  .cards-list {
+    padding: 80px 200px;
+  }
+  .hero {
+    /* padding :160px */
+  }
+}
+@media (min-width:1000px) and (max-width:1199px) {
+  .cards-list {
+    padding: 80px 200px;
+  }
+  .hero {
+    /* padding :160px */
   }
 }
