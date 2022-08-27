@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Card from './components/Card'
 import Data from './Data'
+import Footer from './components/Footer';
 
 function App() {
   var reversedData = [...Data].reverse();
@@ -24,6 +25,7 @@ function App() {
         })
       }
       </section>
+      <Footer />
     </div>
   );
 }
