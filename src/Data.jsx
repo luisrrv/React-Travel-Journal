@@ -120,5 +120,16 @@ export default [
         end: "17 June, 2022"
     },
     location: "HAKONE",
+  },
+  {
+    id: 12,
+    title: "Izu, Japan",
+    description: "Izu is a city in Japan’s Shizuoka prefecture, on the heavily forested Izu Peninsula. It’s known for its hot spring resorts and the Shuzenji Temple, a 9th-century Zen Buddhist site with a bamboo garden. Old-fashioned, English-themed steam trains operate along the narrow-gauge Shuzenji Romney Railway. The medieval Toi Gold Mine has restored tunnels and a gold museum.",
+    coverImg: "https://offbeatjapan.org/wp-content/uploads/2013/08/tori-plage.jpg",
+    dates: {
+        start: "28 July, 2022",
+        end: "30 July, 2022"
+    },
+    location: "IZU",
   }
 ]
