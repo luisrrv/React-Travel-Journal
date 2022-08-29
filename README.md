@@ -1,5 +1,6 @@
 # ✈️ My Travel Journal
-### A personal journal of my travels over the last years made with ReactJS using props and mapping data.
+### A personal journal of my travels over the last years made with ReactJS using props and mapping data.#
+### A detailed view with pictures for each location is under construction 🚧
 
 <p float="left">
   <img src="https://user-images.githubusercontent.com/69304255/173847681-c74394e9-229d-4e47-8cc2-4815ca486fa1.png" width="550" />
