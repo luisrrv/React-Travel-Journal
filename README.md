@@ -1,5 +1,5 @@
 # ✈️ My Travel Journal
-### A personal journal of my travels over the last years made with ReactJS
+### A personal journal of my travels over the last years made with ReactJS ⚛
 ### A detailed view with pictures for each location is under construction 🚧
 
 <p float="left">
@@ -7,7 +7,7 @@
   <img src="https://user-images.githubusercontent.com/69304255/173847673-a5fb160e-b587-4263-a5f4-74dfe8107c6d.png" width="250" /> 
 </p>
 
-### ⬇️ Check it out 
+### ⬇️ Check out my travels
 ### https://luis-travel-journal.netlify.app/
 
 <br>
