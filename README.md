@@ -13,7 +13,7 @@
 <br>
 
 ### ⚙️ Settings
-In the project directory, you can run:
+In the project directory, run the following:
 
 ### `npm start`
 
