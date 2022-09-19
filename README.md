@@ -13,11 +13,9 @@
 <br>
 
 ### ⚙️ Settings
-In the project directory, run the following:
+In the project directory, run `npm start`.
 
-### `npm start`
-
-Runs the app in the development mode.\
+This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
