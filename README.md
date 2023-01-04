@@ -3,8 +3,8 @@
 ### A detailed view with pictures for each location as well as other features are under construction 🚧
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/69304255/173847681-c74394e9-229d-4e47-8cc2-4815ca486fa1.png" width="550" />
-  <img src="https://user-images.githubusercontent.com/69304255/173847673-a5fb160e-b587-4263-a5f4-74dfe8107c6d.png" width="250" /> 
+  <img src="https://user-images.githubusercontent.com/69304255/210505038-eec8edf9-3a26-4ea3-b692-98741481f1b8.png" width="550" />
+  <img src="https://user-images.githubusercontent.com/69304255/210504815-4d133b24-6f95-45ec-b1e8-57e9798295b6.png" width="250" /> 
 </p>
 
 ### ⬇️ Check out my travels
