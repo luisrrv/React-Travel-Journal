@@ -88,7 +88,7 @@ nav {
   gap: 8px;
 }
 .gray {
-  color: #676769;
+  color: #f55a5abd;
   text-decoration: none;
 }
 .gray:hover {
@@ -109,7 +109,7 @@ section {
 .hero {
   /* background-image: url("./assets/blob.png"); */
   /* margin-top: 70px; */
-  height: 70vh;
+  height: 50vh;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -272,7 +272,7 @@ section {
     padding: 20px;
   }
 }
-@media (max-width:400px) {
+@media (max-width:440px) {
   .bg {
     background-image: url(./assets/blob-bg-sm.svg);
   }
@@ -283,16 +283,23 @@ section {
   }
   .card {
     flex-direction: column;
+    padding: 0;
   }
   .card--stats {
     width: 100%;
+    padding: 0 16px 16px 16px;
   }
   .card--image {
     width: 100%;
     height: 460px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
   .card--stats p {
     text-align: start;
+  }
+  .card--title {
+    margin-bottom: 4px;
   }
   .hero--header {
     top: 45.5%;

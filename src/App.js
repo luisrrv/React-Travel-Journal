@@ -9,8 +9,26 @@ import { BsFillPinMapFill } from 'react-icons/bs'
 
 function App() {
   var reversedData = [...Data].reverse();
+
+  // const handleScroll = event => {
+  //   var lastScrollTop = 0;
+  //   console.log(blob);
+
+  //   var st = window.pageYOffset || document.documentElement.scrollTop;
+  //   if (st > lastScrollTop){
+  //     var blob = document.querySelector('.blob');
+  //     console.log(blob);
+  //     blob.style.transform = 'translateY(-10px)';
+  //   } else {
+  //     var blob = document.querySelector('.blob');
+  //     console.log(blob);
+  //     blob.style.transform = 'translateY(10px)';
+  //   }
+  //   lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+  // };
+
   return (
-    <div className="App">
+    <div className="App" /*nScroll={handleScroll}*/>
       <div className="bg"></div>
       <Nav />
       <Hero />
