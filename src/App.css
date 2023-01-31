@@ -267,6 +267,130 @@ section {
 .footer-text:hover {
   color: #F55A5A;
 }
+
+
+/* ====================================DETAILS PAGE====================================== */
+
+.details {
+  position: relative;
+  padding: 24px;
+  background-color: #e7e5dc;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.details::-webkit-scrollbar {
+  display: none;
+}
+.details .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  width: 100%;
+  user-select: none;
+}
+.details .back-btn {
+  color: #5a5a5a;
+}
+.details .back-btn:hover {
+  cursor: pointer;
+  color: #F55A5A;
+}
+.details .header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.details .header h1 {
+  margin-bottom: 0;
+}
+.details .nav .about {
+  color: #5a5a5a;
+  text-transform: lowercase;
+}
+.details .nav .about:hover {
+  cursor: pointer;
+  color: #F55A5A;
+}
+.details .header .dates {
+  font-size: 12px;
+}
+.details .header .location-img {
+  border-radius: 50%;
+}
+.details .content {
+  height: 400px;
+  margin-top: 24px;
+}
+.details .content .pics {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: scroll;
+}
+.details .content .pics img{
+  height: 240px;
+}
+.details .btn {
+  background-color: #F55A5A;
+  padding: 8px 16px;
+  border-radius: 36px;
+  color: #ECECEC;
+  min-width: 80px;
+  max-width: 120px;
+  text-align: center;
+  margin: 8px;
+  user-select: none;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.details .btn:hover {
+  cursor: pointer;
+}
+.details .popup {
+  position: absolute;
+  left: 50%;
+  top: 82px;
+  transform: translateX(-50%);
+  width: 50%;
+  background-color: #F55A5A;
+  border-radius: 16px;
+  height: fit-content;
+  padding: 32px 28px;
+  color: #ECECEC;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.details .popup .x {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+}
+.details .popup .x:hover {
+  cursor: pointer;
+}
+.details .popup.map-container {
+  width: 95%;
+  height: 80%;
+  max-width: 1000px;
+  position: absolute;
+}
+.details .footer {
+  width: 100%;
+  text-align: right;
+  font-size: 10px;
+}
+
+/* ==================================DETAILS PAGE END==================================== */
+
+
 @media (max-width:860px) {
   section {
     padding: 20px;
