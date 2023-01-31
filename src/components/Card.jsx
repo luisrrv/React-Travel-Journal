@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 import { SiGooglemaps } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ const Card = (props) => {
   return (
     <div className="card">
         {/* {badgeText && <div className="card--badge">{badgeText}</div>} */}
-        <Link to={'/details'} style={divImage} className="card--image" />
+        <Link to={'/details'} state={ props.item } style={divImage} className="card--image" />
         <div className="card--stats">
           <p className='card--location'><SiGooglemaps style={style} />{props.item.location} <span><a className='gray' href={`https://www.google.com/maps/place/${props.item.location}`} target="_blank" rel="noreferrer">&nbsp;&nbsp;&nbsp;View on Google Maps</a></span></p>
           <h2 className='card--title'>{props.item.title}</h2>
