@@ -1,6 +1,6 @@
 import React from 'react'
 import { SiGooglemaps } from 'react-icons/si';
-
+import { Link } from 'react-router-dom';
 
 // const images = require.context('../../public/images', true);
 
@@ -12,7 +12,7 @@ const Card = (props) => {
   return (
     <div className="card">
         {/* {badgeText && <div className="card--badge">{badgeText}</div>} */}
-        <div style={divImage} className="card--image" ></div>
+        <Link to={'/details'} style={divImage} className="card--image" />
         <div className="card--stats">
           <p className='card--location'><SiGooglemaps style={style} />{props.item.location} <span><a className='gray' href={`https://www.google.com/maps/place/${props.item.location}`} target="_blank" rel="noreferrer">&nbsp;&nbsp;&nbsp;View on Google Maps</a></span></p>
           <h2 className='card--title'>{props.item.title}</h2>
@@ -24,10 +24,3 @@ const Card = (props) => {
 }
 
 export default Card;
-
-  // let badgeText
-  // if (props.item.openSpots === 0) {
-  //     badgeText = "SOLD OUT"
-  // } else if (props.item.location === "Online") {
-  //     badgeText = "ONLINE"
-  // }
