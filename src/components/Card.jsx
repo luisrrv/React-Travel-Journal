@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react';
 import { SiGooglemaps } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 
