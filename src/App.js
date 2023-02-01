@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Card from './components/Card'
