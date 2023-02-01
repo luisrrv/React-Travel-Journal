@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import Details from "./components/Details";
+// import Redirect from './components/Redirect';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -15,8 +16,16 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/details",
+    path: "/details/*",
     element: <Details />,
+  },
+  {
+    path: "/*",
+    element: <App />,
+  },
+  {
+    path: "/details",
+    element: <App />,
   },
 ]);
 
