@@ -13,6 +13,10 @@
 <br>
 
 ### ⚙️ Settings
+
+This project uses webpack and sass-loader so make sure it is installed.
+`npm install sass-loader sass webpack --save-dev`
+
 In the project directory, run `npm start`.
 
 This runs the app in the development mode.\
