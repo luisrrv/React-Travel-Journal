@@ -27,6 +27,7 @@ function App() {
     }
   }, []);
 
+  const [loginForm, setLoginForm] = useState('off');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   const [users, setUsers] = useState([])
@@ -57,6 +58,9 @@ function App() {
         }
       })
   }
+  const handleLoginForm = ()=> {
+    loginForm==='off' ? setLoginForm('on') : setLoginForm('off');
+  }
 
   // useEffect(() => {
   //   const getUsers = async () => {
@@ -86,8 +90,15 @@ function App() {
         })
       }
       </section>
+      <p className='btn login-btn' onClick={handleLoginForm} >Login</p>
       <Footer />
-      <Login />
+     { loginForm==='on' && (
+        <div className='popup-back'>
+          <div onClick={handleLoginForm} className='x btn'>X</div>
+          <Login className="Login popup" popup={loginForm}/>
+        </div>
+        )
+      }
     </div>
   );
 }
