@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
-function Login() {
+function Login({ setEmail, setPassword, loginFormOn, handleAction}) {
+
+  // const theme = createMuiTheme({
+  //   overrides: {
+  //     MuiInputBase: {
+  //       input: {
+  //         background: "#fff",
+  //       },
+  //     },
+  //   },
+  // });
+
+
   return (
-    <div className='login-form' >
-        Login
-            {/* <div className="heading-container">
-                <h3>
-                    {title}
-                </h3>
+    <div className='login-form' onClick={loginFormOn} >
+            <div className="heading-container">
+                <h3>Are you luisrrv ?</h3>
             </div>
 
             <Box
@@ -18,13 +31,13 @@ function Login() {
                 noValidate
                 autoComplete="off"
             >
-              {title === "Manager login" ?
               <div className='manager-login-form'>
               <TextField
               id="email"
               label="Email"
               variant="outlined"
               type="email"
+              className={'login-text-form'}
               onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
@@ -32,27 +45,14 @@ function Login() {
                 label="Password"
                 type="password"
                 variant="outlined"
+                className='login-text-form'
                 onChange={(e) => setPassword(e.target.value)}
               />
               </div>
-            :
-            <TextField
-                  id="code"
-                  label="Login code"
-                  variant="outlined"
-                  onChange={(e) => setOperatorCode(e.target.value)}
-                />
-
-            }
 
             </Box>
 
-            {title === "Manager login" ?
-            <Button title={title} handleAction={handleAction}/>
-            :
-            <Button title={title} handleAction={handleAction}/>
-            }
-          <Btn onClick={() => {navigate(`/${title === "Operator Login" ? "Manager-login" : "Operator-login"}`)}}>{title === "Operator Login" ? "Manager Login" : "Operator Login"}</Btn> */}
+            <Button variant="contained" onClick={handleAction}>Login</Button>
         </div>
   )
 }
