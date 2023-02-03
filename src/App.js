@@ -19,11 +19,10 @@ function App() {
   var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
-
+    authToken ? console.log('Logged in') : console.log('Not logged in');
     if (authToken) {
-      alert('logged in');
-      // navigate('/')
-      // show edit/add photos form
+      setLoginForm('off');
+      // TODO: show edit/add photos form
     }
   }, [authToken]);
 
@@ -40,8 +39,9 @@ function App() {
 
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
-        alert(response);
-        navigate('/')
+        // console.log(response);
+        alert('Logged in');
+        navigate('/');
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       }).catch((error) => {
         if(error.code === 'auth/wrong-password'){
@@ -66,7 +66,8 @@ function App() {
   }
   const handleLogout = () => {
     sessionStorage.removeItem('Auth Token');
-    navigate('/')
+    alert("Logged out");
+    navigate('/');
 }
   // useEffect(() => {
   //   const getUsers = async () => {
