@@ -8,7 +8,7 @@ import Data from './Data'
 import Footer from './components/Footer';
 import { BsFillPinMapFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
-// import { app, db } from './firebase-config';
+import { app } from './firebase-config';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
@@ -34,7 +34,7 @@ function App() {
   // const usersCollectionRef = collection(db, "operators");
 
   const handleAction = (role) => {
-    const authentication = getAuth();
+    const authentication = getAuth(app);
 
     // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
 
