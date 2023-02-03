@@ -8,7 +8,7 @@ import Data from './Data'
 import Footer from './components/Footer';
 import { BsFillPinMapFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
-import { app, db } from './firebase-config';
+// import { app, db } from './firebase-config';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
@@ -25,7 +25,7 @@ function App() {
       // navigate('/')
       // show edit/add photos form
     }
-  }, []);
+  }, [authToken]);
 
   const [loginForm, setLoginForm] = useState('off');
   const [email, setEmail] = useState('');

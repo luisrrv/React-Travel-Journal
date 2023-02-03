@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
+import { Link, useParams, Navigate } from 'react-router-dom';
 import Footer from './Footer';
 import Data from '../Data';
 
@@ -16,7 +16,7 @@ const Details = () => {
     // }
     useEffect(() => {
         item.title && (document.title = `${item.title} - My Travel Journal`);
-    },[]);
+    },[item.title]);
     const [map, setMap] = useState('off');
     const [details, setDetails] = useState('off');
     const updateMap = ()=> {
