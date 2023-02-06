@@ -1,20 +1,18 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 // import { styled } from '@mui/material/styles';
 
 function Login({ setEmail, setPassword, loginFormOn, handleAction}) {
+  const [disabled, setDisabled] = useState(false);
 
-  // const theme = createMuiTheme({
-  //   overrides: {
-  //     MuiInputBase: {
-  //       input: {
-  //         background: "#fff",
-  //       },
-  //     },
-  //   },
-  // });
+  const handleClick = () => {
+    setDisabled(true);
+    setTimeout(() => {
+      setDisabled(false);
+    }, 1000);
+  }
 
 
   return (
@@ -52,7 +50,14 @@ function Login({ setEmail, setPassword, loginFormOn, handleAction}) {
 
             </Box>
 
-            <Button variant="contained" onClick={handleAction}>Login</Button>
+            <Button
+              variant="contained"
+              disabled={disabled}
+              onClick={() => { handleAction(); handleClick(); }}
+              className="login-btn"
+              >
+              Login
+            </Button>
         </div>
   )
 }

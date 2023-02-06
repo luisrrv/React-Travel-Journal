@@ -31,29 +31,38 @@ function App() {
   const [password, setPassword] = useState('')
   // const [users, setUsers] = useState([])
   // const usersCollectionRef = collection(db, "operators");
-
-  const handleAction = (role) => {
+  const clearInfo = () => {
+    setEmail('');
+    setPassword('');
+  }
+  const handleAction = () => {
     const authentication = getAuth(app);
+    if((email==='') && (password==='')) {
+      toast.error('Please check your email/password');
+      return;
+    }
 
     // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
 
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
-        // console.log(response);
-        toast('Logged in')
+        console.log(response);
+        toast.success('Logged in');
         navigate('/');
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       }).catch((error) => {
+        console.log(error);
         if(error.code === 'auth/wrong-password'){
           toast.error('Please check the Password');
-        }
-        if(error.code === 'auth/user-not-found'){
+        } else if(error.code === 'auth/user-not-found'){
           toast.error('Please check the Email');
-        }
-        if(error.code === 'auth/invalid-email'){
+        } else if(error.code === 'auth/invalid-email'){
           toast.error('Please enter a valid Email');
+        } else {
+          toast.error('Please check your email/password');
         }
-      })
+
+      });
   }
   const handleLoginForm = ()=> {
     loginForm==='off' ? setLoginForm('on') : setLoginForm('off');
@@ -63,6 +72,7 @@ function App() {
   }
   const handleLogout = () => {
     sessionStorage.removeItem('Auth Token');
+    clearInfo();
     toast("Logged out");
     navigate('/');
 }
@@ -77,7 +87,18 @@ function App() {
 
   return (
     <div className="App" /*nScroll={handleScroll}*/>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className="bg"></div>
       <Nav />
       <Hero />
