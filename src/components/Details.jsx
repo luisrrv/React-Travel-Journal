@@ -71,7 +71,7 @@ const Details = () => {
                                     <img src="https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f" alt="lizzard" />
                                 </div>
                         </div>
-            
+
                         {(map === 'on' &&
                             <div className="popup map-container">
                             <div onClick={closeMap} className="x">X</div>
