@@ -9,8 +9,8 @@ import Footer from './components/Footer';
 import { BsFillPinMapFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { app } from './firebase-config';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 // import { collection, getDocs, doc } from 'firebase/firestore'
 
@@ -40,21 +40,18 @@ function App() {
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
         // console.log(response);
-        alert('Logged in');
+        toast('Logged in')
         navigate('/');
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       }).catch((error) => {
         if(error.code === 'auth/wrong-password'){
-          // toast.error('Please check the Password');
-          alert(error.code);
+          toast.error('Please check the Password');
         }
         if(error.code === 'auth/user-not-found'){
-          // toast.error('Please check the Email');
-          alert(error.code);
+          toast.error('Please check the Email');
         }
         if(error.code === 'auth/invalid-email'){
-          // toast.error('Please enter a valid Email');
-          alert(error.code);
+          toast.error('Please enter a valid Email');
         }
       })
   }
@@ -66,7 +63,7 @@ function App() {
   }
   const handleLogout = () => {
     sessionStorage.removeItem('Auth Token');
-    alert("Logged out");
+    toast("Logged out");
     navigate('/');
 }
   // useEffect(() => {
@@ -80,6 +77,7 @@ function App() {
 
   return (
     <div className="App" /*nScroll={handleScroll}*/>
+      <ToastContainer />
       <div className="bg"></div>
       <Nav />
       <Hero />
