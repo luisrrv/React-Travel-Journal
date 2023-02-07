@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Data from './Data'
 import Footer from './components/Footer';
 import { BsFillPinMapFill } from 'react-icons/bs'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { app } from './firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
@@ -129,7 +130,7 @@ function App() {
      { loginForm==='on' && (
         <div>
           <div onClick={handleLoginForm} className='popup-back'>
-            <div onClick={handleLoginForm} className='x btn'>X</div>
+            <div onClick={handleLoginForm} className='x btn'><AiFillCloseCircle/></div>
           </div>
             <Login
               setEmail={setEmail}
