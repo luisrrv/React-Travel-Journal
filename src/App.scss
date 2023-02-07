@@ -2,6 +2,10 @@
 
 .App {
   text-align: center;
+  position: unset;
+}
+.App.off {
+  position: fixed;
 }
 
 .App-logo {
@@ -275,11 +279,11 @@ section {
   width: 100%;
   height: 100%;
   background-color: #0101016d;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   .x {
     text-align: right;
     padding: 16px;
-    font-size: 20px;
+    font-size: 28px;
     color: #000000;
   }
 }
@@ -295,7 +299,7 @@ section {
   width: 90%;
   max-width: 800px;
   height: fit-content;
-  background-color: #f4f4f4d6;
+  background-color: #ffffff;
   border-radius: 16px;
   padding: 32px 28px;
   padding-bottom: 48px;
@@ -336,7 +340,7 @@ section {
   position: relative;
   padding: 24px;
   background-color: #e7e5dc;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   flex-direction:column;
@@ -345,6 +349,23 @@ section {
   overflow-x: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+.details.off {
+  position: fixed;
+}
+.blur {
+  display: none;
+  background-color: transparent;
+  backdrop-filter: blur(15px);
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+}
+.blur.on {
+  display: block;
 }
 .details::-webkit-scrollbar {
   display: none;
@@ -431,6 +452,7 @@ section {
   padding: 32px 32px;
   color: #ECECEC;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  z-index: 99;
 }
 .details .popup .x {
   position: absolute;
@@ -446,6 +468,7 @@ section {
   height: 80%;
   max-width: 1000px;
   position: absolute;
+  overflow: hidden;
   .map {
     text-align: justify;
   }

@@ -8,18 +8,16 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
-    // alert('juas')
-    // let navigate = useNavigate();
     const id = useParams()['*'];
     const item = Data[id -1];
-    // if (!item) {
-    //     Navigate('/');
-    // }
+    const [map, setMap] = useState('off');
+    const [details, setDetails] = useState('off');
+    const [blur, setBlur] = useState(false);
+   
     useEffect(() => {
         item.title && (document.title = `${item.title} - My Travel Journal`);
     },[item.title]);
-    const [map, setMap] = useState('off');
-    const [details, setDetails] = useState('off');
+
     const updateMap = ()=> {
         map==='off' ? setMap('on') && setDetails('off') : setMap('off');
         details==='on' && setDetails('off');
@@ -31,8 +29,13 @@ const Details = () => {
         details==='off' ? setDetails('on') : setDetails('off');
         map==='on' && setMap('off');
     }
-    const detailsOff = ()=> {
+    const detailsOff = (e)=> {
         setDetails('off');
+    }
+    const blurSet = () => {
+        console.log('before',blur);
+        (map==='on' || details==='on') ? setBlur(false) : setBlur(true);
+        console.log('after',blur);
     }
     const locationImg = {
         backgroundImage: `url(${item ? item.coverImg : ''})`,
@@ -43,23 +46,23 @@ const Details = () => {
         backgroundPositionY: 'center',
       };
     return (
-        <div className="details" >
+        <div className={blur ? 'details off' : 'details'} >
             {
                 !item ? (
                     <Navigate to='/' />
                 ) : (
                     <div>
-                        <div className="nav" onClick={closeMap}>
+                        <div className="nav" >
                         <Link to='/' className="back-btn">{"back to the list"}</Link>
-                        <p className="about" onClick={updateDetails}>{`About ${item.location}`}</p>
+                        <p className="about" onClick={()=> {updateDetails(); blurSet();}} >{`About ${item.location}`}</p>
                         </div>
-                        <div className="header" onClick={()=>{detailsOff(); closeMap();}}>
+                        <div className="header" >
                             <h1>{item.title}</h1>
                             <p className="dates">{`${item.dates.start} - ${item.dates.end}`}</p>
                             <div className="location-img" style={locationImg}></div>
                         </div>
-                        <div className="btn" onClick={updateMap}>Map</div>
-                        <div className="content" onClick={()=>{detailsOff(); closeMap();}}>
+                        <div className="btn" onClick={()=>{updateMap(); blurSet();}}>Map</div>
+                        <div className="content" >
                                 <div className="pics">
                                     <img src="https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg" alt="selfie" />
                                     <img src="https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png" alt="majestic" />
@@ -75,7 +78,7 @@ const Details = () => {
 
                         {(map === 'on' &&
                             <div className="popup map-container">
-                            <div onClick={closeMap} className="x"><AiFillCloseCircle/></div>
+                            <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
                             <div className="map">
                                 Map Map Map Map Map Map Map Map Map Map Map Map Map
                                 Map Map Map Map Map Map Map Map Map Map Map Map Map
@@ -96,11 +99,12 @@ const Details = () => {
                                 Map Map Map Map Map Map Map Map Map Map Map Map Map
                             </div>
                             </div>)}
-                        { details==='on' && <div className="popup details">{item.description}<div onClick={detailsOff} className='x'><AiFillCloseCircle/></div></div> }
+                        { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
                         <Footer />
                     </div>
                 )
             }
+            <div className={blur ? 'blur on' : 'blur'}></div>
         </div>
     )
 }

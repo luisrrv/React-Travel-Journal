@@ -30,6 +30,7 @@ function App() {
   const [loginForm, setLoginForm] = useState('off');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
+  const [blur, setBlur] = useState(false);
   // const [users, setUsers] = useState([])
   // const usersCollectionRef = collection(db, "operators");
   const clearInfo = () => {
@@ -77,6 +78,11 @@ function App() {
     toast("Logged out");
     navigate('/');
 }
+const blurSet = () => {
+  console.log('before',blur);
+  (loginForm==='on') ? setBlur(false) : setBlur(true);
+  console.log('after',blur);
+}
   // useEffect(() => {
   //   const getUsers = async () => {
   //     const data = await getDocs(usersCollectionRef);
@@ -87,7 +93,7 @@ function App() {
   // }, [usersCollectionRef]);
 
   return (
-    <div className="App" /*nScroll={handleScroll}*/>
+    <div className={blur ? 'App off' : 'App'} /*nScroll={handleScroll}*/>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -120,7 +126,7 @@ function App() {
       { authToken ? (
           <p className='btn login-btn' onClick={handleLogout} >Logout</p>
         ) : (
-          <p className='btn login-btn' onClick={handleLoginForm} >Login</p>
+          <p className='btn login-btn' onClick={()=>{handleLoginForm(); blurSet();}} >Login</p>
         )
 
 
@@ -129,16 +135,18 @@ function App() {
       <Footer />
      { loginForm==='on' && (
         <div>
-          <div onClick={handleLoginForm} className='popup-back'>
-            <div onClick={handleLoginForm} className='x btn'><AiFillCloseCircle/></div>
+          <div onClick={()=>{handleLoginForm(); blurSet();}} className='popup-back'>
+            <div onClick={()=>{handleLoginForm(); blurSet();}} className='x btn'><AiFillCloseCircle/></div>
           </div>
             <Login
               setEmail={setEmail}
               setPassword={setPassword}
               loginFormOn={() => loginFormOn()}
               handleAction={() => handleAction()}
+              blurSet={()=> blurSet()}
               className="Login popup"
-              popup={loginForm}/>
+              popup={loginForm}
+              />
         </div>
       )
      }

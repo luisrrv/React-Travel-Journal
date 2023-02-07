@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 // import { styled } from '@mui/material/styles';
 
-function Login({ setEmail, setPassword, loginFormOn, handleAction}) {
+function Login({ setEmail, setPassword, loginFormOn, handleAction, blurSet}) {
   const [disabled, setDisabled] = useState(false);
 
   const handleClick = () => {
@@ -53,7 +53,7 @@ function Login({ setEmail, setPassword, loginFormOn, handleAction}) {
             <Button
               variant="contained"
               disabled={disabled}
-              onClick={() => { handleAction(); handleClick(); }}
+              onClick={() => { handleAction(); handleClick(); blurSet(); }}
               className="login-btn"
               >
               Login
