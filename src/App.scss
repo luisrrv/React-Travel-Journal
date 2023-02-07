@@ -196,7 +196,7 @@ section {
   padding-top: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 12px;
+  grid-row-gap: 24px;
   place-items: center;
   border-radius: 16px;
 }
@@ -215,11 +215,12 @@ section {
   background-color: #f5f5f5e9;
   border-radius: 12px;
   padding: 0;
+  transition: 250ms;
 }
-/* .card:hover { */
-  /* background-color: rgb(142, 183, 255); */
-  /* color: white; */
-/* } */
+  .card:hover { 
+    transform: scale(1.02);
+  } 
+
 .card:last-child {
   border-bottom: none;
 }
@@ -511,7 +512,6 @@ footer {
   }
   .cards-list {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 0;
     .card {
       width: 300px;
     }
@@ -523,7 +523,6 @@ footer {
   }
   .cards-list {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 0;
     .card {
       width: 250px;
     }
@@ -535,7 +534,6 @@ footer {
   }
   .cards-list {
     grid-template-columns: 1fr;
-    grid-gap: 0;
     .card {
       width: 320px;
       // height: 500px;
@@ -552,7 +550,7 @@ footer {
     height: 100%;
   }
   .cards-list {
-    gap: 16px;
+    gap: 24px;
   }
   .card {
     flex-direction: column;
