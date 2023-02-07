@@ -79,7 +79,7 @@ export default [
   },
   {
     id: 8,
-    title: "Sapporo, Hokkaido, Japan",
+    title: "Sapporo, Japan",
     description: "Sapporo, capital of the mountainous northern Japanese island of Hokkaido, is famous for its beer, skiing and annual Sapporo Snow Festival featuring enormous ice sculptures. The Sapporo Beer Museum traces the city’s brewing history and has tastings and a beer garden. Ski hills and jumps from the 1972 Winter Olympics are scattered within the city limits, and Niseko, a renowned ski resort, is nearby.",
     coverImg: "https://images.unsplash.com/photo-1584005679717-7dda5e88bb52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80",
     dates: {

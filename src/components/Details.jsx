@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import Footer from './Footer';
+// import Footer from './Footer';
 import Data from '../Data';
 import { AiFillCloseCircle } from 'react-icons/ai'
 
@@ -100,7 +100,7 @@ const Details = () => {
                             </div>
                             </div>)}
                         { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
-                        <Footer />
+                        {/* <Footer /> */}
                     </div>
                 )
             }

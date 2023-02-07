@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Nabla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Megrim&family=Montserrat:wght@300;400;700&display=swap');
 
 .App {
   text-align: center;
@@ -148,7 +148,7 @@ section {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   font-size: 62px;
   font-weight: 300;
-  font-family: 'Nabla', cursive;
+  font-family: 'Megrim', cursive;
   color: #F55A5A;
 }
 .hero--header {
@@ -188,32 +188,33 @@ section {
   font-family: "Montserrat", sans-serif;
   font-size: 18px;
   text-align: start;
-  padding: 0 12px;
+  padding: 0 10%;
   color: #5a5a5a;
 }
 .cards-list {
   background: transparent;
   padding-top: 8px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 20px;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 12px;
+  place-items: center;
   border-radius: 16px;
 }
 .card {
-  width: 100%;
+  width: 240px;
+  height: fit-content;
   font-size: 12px;
   flex: 0 0 auto;
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  // gap: 16px;
   position: relative;
-  align-items: flex-start;
+  // align-items: flex-start;
   padding-bottom: 18px;
   border-bottom: 1px solid rgb(215, 215, 215);
   background-color: #f5f5f5e9;
   border-radius: 12px;
-  padding: 18px;
+  padding: 0;
 }
 /* .card:hover { */
   /* background-color: rgb(142, 183, 255); */
@@ -223,9 +224,9 @@ section {
   border-bottom: none;
 }
 .card--image {
-  width: 240px;
+  width: 100%;
   height: 320px;
-  border-radius: 9px;
+  border-radius: 9px 9px 0 0;
   background-size: cover;
   background-position: center;
 }
@@ -233,7 +234,9 @@ section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 80%;
+  width: 100%;
+  padding: 16px;
+  padding-bottom: 24px;
   /* flex-grow: 1; */
 }
 .card--stats p {
@@ -243,9 +246,10 @@ section {
 .card--title {
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 24px;
+  font-size: 16px;
   margin-top: 4px;
   font-weight: 400;
+  text-align: start;
 }
 .card--location {
   display: flex;
@@ -255,9 +259,11 @@ section {
   margin-top: 0;
 }
 .card--date {
-  font-size: 13px;
+  font-size: 11px;
+  padding: 6px 0;
   margin: 0;
   font-weight: 300;
+  color: #5a5a5a;
 }
 .card--description {
   font-weight: 300;
@@ -310,16 +316,19 @@ section {
     font-weight: 300;
     pointer-events: none;
     user-select: none;
+    font-family: 'Megrim', cursive;
   }
   .login-text-form {
     margin: 8px;
   }
   .login-btn {
     margin-left: 30px;
-    padding: 12px;
+    padding: 10px;
     width: 120px;
     background-color: #F55A5A;
-    font-size: 16px;
+    font-size: 18px;
+    font-family: 'Megrim', cursive;
+    border-radius: 16px;
     &:hover {
       background-color: #fb7a7a;
       cursor: pointer;
@@ -395,6 +404,7 @@ section {
 .details .header h1 {
   margin-bottom: 0;
   color: #F55A5A;
+  font-family: 'Megrim', cursive;
 }
 .details .nav .about {
   color: #5a5a5a;
@@ -425,17 +435,23 @@ section {
   height: 240px;
 }
 .details .btn {
+  font-family: 'Megrim', cursive;
+  font-size: 20px;
   align-self: center;
-  background-color: #F55A5A;
+  border: 1px solid #4e4e4e;
   padding: 12px 16px;
-  border-radius: 36px;
+  border-radius: 16px;
   color: #ECECEC;
   min-width: 80px;
   max-width: 120px;
   text-align: center;
   margin: 20px auto;
   user-select: none;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  &:hover {
+    background-color: #F55A5A;
+    border-color: #F55A5A;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  }
 }
 .details .btn:hover {
   cursor: pointer;
@@ -475,7 +491,7 @@ section {
 }
 .details .footer {
   position: absolute;
-  bottom: 12px;
+  bottom: 6px;
   right: 12px;
   width: 100%;
   text-align: right;
@@ -493,6 +509,38 @@ footer {
   section {
     padding: 20px;
   }
+  .cards-list {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0;
+    .card {
+      width: 300px;
+    }
+  }
+}
+@media (max-width:720px) {
+  section {
+    padding: 20px;
+  }
+  .cards-list {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0;
+    .card {
+      width: 250px;
+    }
+  }
+}
+@media (max-width:580px) {
+  section {
+    padding: 20px;
+  }
+  .cards-list {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    .card {
+      width: 320px;
+      // height: 500px;
+    }
+  }
 }
 @media (max-width:440px) {
   .bg {
@@ -509,7 +557,7 @@ footer {
   }
   .card--stats {
     width: 100%;
-    padding: 0 16px 16px 16px;
+    padding: 16px 16px 24px 16px;
   }
   .card--image {
     width: 100%;
@@ -522,6 +570,7 @@ footer {
   }
   .card--title {
     margin-bottom: 4px;
+    font-family: 'Megrim', cursive;
   }
   .hero--header {
     top: 45.5%;
@@ -561,31 +610,31 @@ footer {
   .cards-list {
     padding: 80px 500px;
   }
-  .hero {
-    /* padding :160px */
-  }
+  // .hero {
+  //   /* padding :160px */
+  // }
 }
 @media (min-width:1400px) and (max-width:1799px) {
   .cards-list {
     padding: 80px 300px;
   }
-  .hero {
-    /* padding :160px */
-  }
+  // .hero {
+  //   /* padding :160px */
+  // }
 }
 @media (min-width:1200px) and (max-width:1399px) {
   .cards-list {
-    padding: 80px 200px;
+    padding: 80px 160px;
   }
-  .hero {
-    /* padding :160px */
-  }
+  // .hero {
+  //   /* padding :160px */
+  // }
 }
-@media (min-width:1000px) and (max-width:1199px) {
-  .cards-list {
-    padding: 80px 200px;
-  }
-  .hero {
-    /* padding :160px */
-  }
-}
+// @media (min-width:1000px) and (max-width:1199px) {
+//   .cards-list {
+//     padding: 80px 200px;
+//   }
+//   .hero {
+//     /* padding :160px */
+//   }
+// }

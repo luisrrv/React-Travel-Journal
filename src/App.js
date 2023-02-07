@@ -6,7 +6,7 @@ import Card from './components/Card'
 import Login from './components/Login'
 import Data from './Data'
 import Footer from './components/Footer';
-import { BsFillPinMapFill } from 'react-icons/bs'
+// import { BsFillPinMapFill } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { app } from './firebase-config';
@@ -110,7 +110,7 @@ const blurSet = () => {
       <Nav />
       <Hero />
       <section id='cards-list' className='cards-list'>
-      <div className="all"><BsFillPinMapFill color='#ffae00' /> All Locations</div>
+      {/* <div className="all"><BsFillPinMapFill color='#ffae00' /> All Locations</div> */}
       {
         reversedData.map(item => {
           return (
