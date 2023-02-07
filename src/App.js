@@ -21,6 +21,7 @@ function App() {
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
     authToken ? console.log('Logged in') : console.log('Not logged in');
+    document.title = 'My Travel Journal';
     if (authToken) {
       setLoginForm('off');
       // TODO: show edit/add photos form
@@ -106,7 +107,7 @@ const blurSet = () => {
         pauseOnHover
         theme="colored"
       />
-      <div className="bg"></div>
+      {/* <div className="bg"></div> */}
       <Nav />
       <Hero />
       <section id='cards-list' className='cards-list'>

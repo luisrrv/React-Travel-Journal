@@ -54,7 +54,7 @@ html {
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: #ECECEC;
+  background-color: #282c34;
 }
 a {
   text-decoration: none;
@@ -75,7 +75,7 @@ nav {
   height: 70px;
   /* display: flex; */
   padding: 20px 36px;
-  background-color: #F55A5A;
+  background-color: #282c34;
   color: white ;
   box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.1);
   /* position: fixed; */
@@ -113,7 +113,7 @@ section {
 .hero {
   /* background-image: url("./assets/blob.png"); */
   /* margin-top: 70px; */
-  height: 50vh;
+  height: 38vh;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -211,15 +211,14 @@ section {
   position: relative;
   // align-items: flex-start;
   padding-bottom: 18px;
-  border-bottom: 1px solid rgb(215, 215, 215);
-  background-color: #f5f5f5e9;
+  background-color: #282c34;
   border-radius: 12px;
   padding: 0;
   transition: 250ms;
 }
-  .card:hover { 
+  .card:hover {
     transform: scale(1.02);
-  } 
+  }
 
 .card:last-child {
   border-bottom: none;
@@ -238,6 +237,8 @@ section {
   width: 100%;
   padding: 16px;
   padding-bottom: 24px;
+  background-color: #282c34;
+  border-radius: 0 0 9px 9px;
   /* flex-grow: 1; */
 }
 .card--stats p {
@@ -245,6 +246,7 @@ section {
 }
 
 .card--title {
+  color: #dadbe6 !important;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 16px;
@@ -264,14 +266,14 @@ section {
   padding: 6px 0;
   margin: 0;
   font-weight: 300;
-  color: #5a5a5a;
+  color: #b8b9c3;
 }
 .card--description {
   font-weight: 300;
   font-size: 14px;
 }
 .footer-text {
-  color: #4e4e4e;
+  color: #435b89;
   font-weight: 300;
   // padding: 16px 0;
 }
@@ -291,7 +293,7 @@ section {
     text-align: right;
     padding: 16px;
     font-size: 28px;
-    color: #000000;
+    color: #F55A5A;
   }
 }
 .login-form {
@@ -306,7 +308,8 @@ section {
   width: 90%;
   max-width: 800px;
   height: fit-content;
-  background-color: #ffffff;
+  background-color: #282c34;
+  color: #ECECEC;
   border-radius: 16px;
   padding: 32px 28px;
   padding-bottom: 48px;
@@ -321,6 +324,18 @@ section {
   }
   .login-text-form {
     margin: 8px;
+    label {
+      color: #d8dee1;
+      font-weight: 300;
+    }
+    fieldset {
+      border-color: #d8dee1;
+    }
+    .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover {
+      fieldset {
+        border-color: #d8dee1;
+      }
+    }
   }
   .login-btn {
     margin-left: 30px;
@@ -338,7 +353,7 @@ section {
 }
 .login-btn {
   position: absolute;
-  color: #F55A5A;
+  color: #435b89;
   top: 16px;
   right: 16px;
 }
@@ -349,8 +364,8 @@ section {
 .details {
   position: relative;
   padding: 24px;
-  background-color: #e7e5dc;
-  height: 100%;
+  background-color: #191A1F;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction:column;
@@ -359,6 +374,12 @@ section {
   overflow-x: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 .details.off {
   position: fixed;
@@ -390,7 +411,7 @@ section {
   user-select: none;
 }
 .details .back-btn {
-  color: #5a5a5a;
+  color: #435b89;
 }
 .details .back-btn:hover {
   cursor: pointer;
@@ -408,7 +429,7 @@ section {
   font-family: 'Megrim', cursive;
 }
 .details .nav .about {
-  color: #5a5a5a;
+  color: #435b89;
   text-transform: lowercase;
 }
 .details .nav .about:hover {
@@ -417,6 +438,7 @@ section {
 }
 .details .header .dates {
   font-size: 12px;
+  color: #b8b9c3;
 }
 .details .header .location-img {
   border-radius: 50%;
@@ -424,6 +446,7 @@ section {
 .details .content {
   // height: 400px;
   margin-top: 24px;
+  flex-grow: 1;
 }
 .details .content .pics {
   width: 100vw;
@@ -432,25 +455,37 @@ section {
   align-items: center;
   overflow: scroll;
 }
+.details .content .pics-title {
+  display: flex;
+  align-items: flex-end;
+  color: #9db6e6;
+  font-family: 'Megrim', cursive;
+  padding: 8px 12px;
+  font-size: 18px;
+}
+.details .content .pics-title.end {
+  justify-content: end;
+}
 .details .content .pics img{
-  height: 240px;
+  height: 300px;
 }
 .details .btn {
   font-family: 'Megrim', cursive;
   font-size: 20px;
   align-self: center;
-  border: 1px solid #4e4e4e;
+  border: 1px solid #F55A5A;
   padding: 12px 16px;
   border-radius: 16px;
-  // color: #4e4e4e;
+  color: #F55A5A;
   min-width: 80px;
   max-width: 120px;
   text-align: center;
   margin: 20px auto;
   user-select: none;
+  transition: 250ms;
   &:hover {
     background-color: #F55A5A;
-    border-color: #F55A5A;
+    color: #ECECEC;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   }
 }
@@ -476,6 +511,7 @@ section {
   top: 8px;
   right: 8px;
   font-size: 24px;
+  color: #ECECEC;
 }
 .details .popup .x:hover {
   cursor: pointer;
@@ -548,6 +584,7 @@ footer {
     background-image: url(./assets/polygon-scatter-bg-sm.svg);
     width: 100%;
     height: 100%;
+    background-position-y: 18px;
   }
   .cards-list {
     gap: 24px;
@@ -555,6 +592,7 @@ footer {
   .card {
     flex-direction: column;
     padding: 0;
+    width: 95% !important;
   }
   .card--stats {
     width: 100%;
