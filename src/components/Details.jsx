@@ -65,6 +65,7 @@ const Details = () => {
                         <div className="content" >
                             <div className="pics-title">pics taken <HiChevronDoubleRight /></div>
                             <div className="pics">
+                                <img src={item.coverImg} alt="selfie" />
                                 <img src="https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg" alt="selfie" />
                                 <img src="https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png" alt="majestic" />
                                 <img src="https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f" alt="lizzard" />
