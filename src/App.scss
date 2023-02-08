@@ -6,6 +6,7 @@
 }
 .App.off {
   position: fixed;
+  width: 100vw;
 }
 
 .App-logo {
@@ -324,17 +325,24 @@ section {
   }
   .login-text-form {
     margin: 8px;
+    input {
+      color: #dadbe6 !important;
+    }
     label {
       color: #d8dee1;
       font-weight: 300;
     }
     fieldset {
       border-color: #d8dee1;
+      // background-color: #282c3484;
     }
     .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover {
       fieldset {
         border-color: #d8dee1;
       }
+    }
+    css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+      // top: -6px;
     }
   }
   .login-btn {
@@ -498,6 +506,7 @@ section {
   top: 82px;
   transform: translateX(-50%);
   width: 90%;
+  max-width: 900px;
   background-color: #F55A5A;
   border-radius: 16px;
   height: fit-content;
@@ -518,7 +527,9 @@ section {
 }
 .details .popup.map-container {
   width: 95%;
+  max-width: 900px;
   height: 80%;
+  max-height: 1200px;
   max-width: 1000px;
   position: absolute;
   overflow: hidden;
