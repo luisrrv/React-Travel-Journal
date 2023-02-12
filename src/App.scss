@@ -533,8 +533,19 @@ section {
   max-width: 1000px;
   position: absolute;
   overflow: hidden;
+  padding: 40px 0 0 0;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 8px;
+  .x {
+    right: 4px;
+  }
   .map {
-    text-align: justify;
+    width: 100%;
+    height: 100%;
+    // .googleMaps-container {
+    //   border: 1px solid red;
+    // }
   }
 }
 .details .footer {

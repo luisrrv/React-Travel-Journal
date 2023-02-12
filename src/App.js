@@ -20,7 +20,7 @@ function App() {
   var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
-    authToken ? console.log('Logged in') : console.log('Not logged in');
+    // authToken ? console.log('Logged in') : console.log('Not logged in');
     document.title = 'My Travel Journal';
     if (authToken) {
       setLoginForm('off');
@@ -80,9 +80,9 @@ function App() {
     navigate('/');
 }
 const blurSet = () => {
-  console.log('before',blur);
+  // console.log('before',blur);
   (loginForm==='on') ? setBlur(false) : setBlur(true);
-  console.log('after',blur);
+  // console.log('after',blur);
 }
   // useEffect(() => {
   //   const getUsers = async () => {

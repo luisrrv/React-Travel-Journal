@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 // import Footer from './Footer';
 import Data from '../Data';
+import Map from './Map';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 
@@ -34,18 +35,22 @@ const Details = () => {
         setDetails('off');
     }
     const blurSet = () => {
-        console.log('before',blur);
         (map==='on' || details==='on') ? setBlur(false) : setBlur(true);
-        console.log('after',blur);
     }
-    // const locationImg = {
-    //     backgroundImage: `url(${item ? item.coverImg : ''})`,
-    //     height: '200px',
-    //     width: '200px',
-    //     backgroundSize: 'cover',
-    //     backgroundPositionX: 'center',
-    //     backgroundPositionY: 'center',
-    //   };
+    const location = item.location.replace(/\s/g , "+");
+    const [coordinates, setCoordinates] = useState(null);
+    useEffect(() => {
+        const getCoordinates = async () => {
+            const response = await fetch(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
+                );
+                const data = await response.json();
+                const { lat, lng } = data.results[0].geometry.location;
+                setCoordinates({ lat, lng });
+            };
+            
+            getCoordinates();
+        }, [location]);
     return (
         <div className={blur ? 'details off' : 'details'} >
             {
@@ -84,23 +89,7 @@ const Details = () => {
                             <div className="popup map-container">
                             <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
                             <div className="map">
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
-                                Map Map Map Map Map Map Map Map Map Map Map Map Map
+                                <Map coordinates={coordinates} />
                             </div>
                             </div>)}
                         { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
