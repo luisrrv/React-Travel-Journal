@@ -128,7 +128,7 @@ section {
 }
 .blob {
   background-image: url(./assets/polygon-scatter-bg.svg);
-  width: 73%;
+  width: 90%;
   height: 75%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -458,10 +458,50 @@ section {
 }
 .details .content .pics {
   width: 100vw;
+  padding-left: 8px;
+  padding-right: 8px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  overflow: scroll;
+  overflow-x: scroll;
+  .img {
+    width: 0;
+    height: 0;
+  }
+  .img.off,
+  .img.on {
+      display: block;
+      width: fit-content;
+      height: 360px;
+      border-radius: 12px;
+      margin: 2px;
+      transition: 400ms;
+      background-position: center;
+      background-size: cover;
+      &:hover {
+        cursor: pointer;
+      }
+  }
+  .img.on {
+      display: block;
+      width: 280px;
+      // max-width: 280px;
+  }
+  .img.off {
+      width: 48px;
+      // height: 332px;
+  }
+  .img.full {
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+    // left: 50%;
+    transform: translateY(-50%);
+    // transform: translateX(-50%);
+    width: 98%;
+    height: 90%;
+  }
 }
 .details .content .pics-title {
   display: flex;
@@ -473,9 +513,6 @@ section {
 }
 .details .content .pics-title.end {
   justify-content: end;
-}
-.details .content .pics img{
-  height: 300px;
 }
 .details .btn {
   font-family: 'Megrim', cursive;
