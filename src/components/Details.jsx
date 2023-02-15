@@ -10,11 +10,13 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
+    const windowWidth = window.innerWidth;
     const id = useParams()['*'];
     const item = Data[id -1];
     const [map, setMap] = useState('off');
     const [details, setDetails] = useState('off');
     const [blur, setBlur] = useState(false);
+    // const [onImg, setOnImg] = useState('');
 
     useEffect(() => {
         item.title && (document.title = `${item.title} - My Travel Journal`);
@@ -36,6 +38,119 @@ const Details = () => {
     }
     const blurSet = () => {
         (map==='on' || details==='on') ? setBlur(false) : setBlur(true);
+    }
+    const fullScreenImg = (img) => {
+        if (img.classList.contains('full')) {
+            img.classList.remove('full');
+        } else {
+            img.classList.add('full');
+        }
+    }
+    const handleImages = (e)=> {
+        let clickedImg = e.target;
+        let imgs = document.querySelectorAll('.img');
+        if (clickedImg.classList.contains('on')) {
+            fullScreenImg(clickedImg);
+            return;
+        }
+        imgs.forEach((img) => {
+            img.classList.remove('on');
+            img.classList.remove('off');
+            img.classList.remove('full');
+        });
+        clickedImg.classList.add('on');
+        
+        imgs.forEach((img, index) => { // TODO: refactor, too long.
+            if (img.classList.contains('on')) {
+                if (windowWidth < 700) {
+                    if (index === 0) {
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                    } else if (index === imgs.length - 1) {
+                        imgs[index-1].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                    } else {
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                    }
+                } else if (windowWidth >= 700) {
+                    console.log(index)
+                    if (index === 0) {
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                        imgs[index+4].classList.add('off');
+                        imgs[index+5].classList.add('off');
+                        imgs[index+6].classList.add('off');
+                    } else if (index === imgs.length - 1) {
+                        imgs[index-1].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-3].classList.add('off');
+                        imgs[index-4].classList.add('off');
+                        imgs[index-5].classList.add('off');
+                        imgs[index-6].classList.add('off');
+                    } else if (index === 1) {
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                        imgs[index+4].classList.add('off');
+                        imgs[index+5].classList.add('off');
+                    } else if (index === 2) {
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                        imgs[index+4].classList.add('off');
+                    } else if (index === 3) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 4) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 5) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 6) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 7) {
+                        imgs[index-4].classList.add('off');
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                    } else if (index === 8) {
+                        imgs[index-5].classList.add('off');
+                        imgs[index-4].classList.add('off');
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                    }
+                }
+            }
+        });
+        // console.log('CLICKED:', clickedImg);
+        // console.log('ALL:',imgs);
     }
     const location = item.location.replace(/\s/g , "+");
     const [coordinates, setCoordinates] = useState(null);
@@ -69,18 +184,34 @@ const Details = () => {
                         </div>
                         <div className="content" >
                             <div className="pics-title">pics taken <HiChevronDoubleRight /></div>
-                            <div className="pics">
-                                <img src={item.coverImg} alt="selfie" />
-                                <img src="https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg" alt="selfie" />
-                                <img src="https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png" alt="majestic" />
-                                <img src="https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f" alt="lizzard" />
-                                <img src="https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg" alt="selfie" />
-                                <img src="https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png" alt="majestic" />
-                                <img src="https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f" alt="lizzard" />
-                                <img src="https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg" alt="selfie" />
-                                <img src="https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png" alt="majestic" />
-                                <img src="https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f" alt="lizzard" />
-                            </div>
+                            {windowWidth < 700 && (
+                                <div className="pics">
+                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.coverImg})`}} alt="selfie" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                </div>
+                                )}
+                            {windowWidth >= 700 && (
+                                <div className="pics">
+                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.coverImg})`}} alt="selfie" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                </div>
+                                )}
                             <div className="pics-title end"><HiChevronDoubleLeft /> during the trip</div>
                         </div>
                         <div className="btn" onClick={()=>{updateMap(); blurSet();}}>Map</div>
