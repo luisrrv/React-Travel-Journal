@@ -489,16 +489,13 @@ section {
   }
   .img.off {
       width: 48px;
+      transform: scale(0.95);
       // height: 332px;
   }
   .img.full {
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    // top: 50px;
-    // left: 50%;
-    // transform: translateY(-50%);
-    // transform: translateX(-50%);
     width: 98%;
     height: 90%;
   }
