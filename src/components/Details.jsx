@@ -60,7 +60,7 @@ const Details = () => {
         });
         clickedImg.classList.add('on');
         
-        imgs.forEach((img, index) => {
+        imgs.forEach((img, index) => { // TODO: refactor, too long.
             if (img.classList.contains('on')) {
                 if (windowWidth < 700) {
                     if (index === 0) {
@@ -74,6 +74,7 @@ const Details = () => {
                         imgs[index+1].classList.add('off');
                     }
                 } else if (windowWidth >= 700) {
+                    console.log(index)
                     if (index === 0) {
                         imgs[index+1].classList.add('off');
                         imgs[index+2].classList.add('off');
@@ -88,13 +89,62 @@ const Details = () => {
                         imgs[index-4].classList.add('off');
                         imgs[index-5].classList.add('off');
                         imgs[index-6].classList.add('off');
-                    } else {
+                    } else if (index === 1) {
                         imgs[index-1].classList.add('off');
-                        imgs[index-2].classList.add('off');
-                        imgs[index-3].classList.add('off');
                         imgs[index+1].classList.add('off');
                         imgs[index+2].classList.add('off');
                         imgs[index+3].classList.add('off');
+                        imgs[index+4].classList.add('off');
+                        imgs[index+5].classList.add('off');
+                    } else if (index === 2) {
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                        imgs[index+4].classList.add('off');
+                    } else if (index === 3) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 4) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 5) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 6) {
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                        imgs[index+3].classList.add('off');
+                    } else if (index === 7) {
+                        imgs[index-4].classList.add('off');
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
+                        imgs[index+2].classList.add('off');
+                    } else if (index === 8) {
+                        imgs[index-5].classList.add('off');
+                        imgs[index-4].classList.add('off');
+                        imgs[index-3].classList.add('off');
+                        imgs[index-2].classList.add('off');
+                        imgs[index-1].classList.add('off');
+                        imgs[index+1].classList.add('off');
                     }
                 }
             }
