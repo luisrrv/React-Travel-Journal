@@ -16,7 +16,7 @@ const Details = () => {
     const [map, setMap] = useState('off');
     const [details, setDetails] = useState('off');
     const [blur, setBlur] = useState(false);
-    // const [onImg, setOnImg] = useState('');
+    const [fullImg, setFullImg] = useState('');
 
     useEffect(() => {
         item.title && (document.title = `${item.title} - My Travel Journal`);
@@ -39,18 +39,25 @@ const Details = () => {
     const blurSet = () => {
         (map==='on' || details==='on') ? setBlur(false) : setBlur(true);
     }
-    const fullScreenImg = (img) => {
-        if (img.classList.contains('full')) {
-            img.classList.remove('full');
+    const fullScreenImg = () => {
+        const img = document.querySelector('.img-full');
+        const imgBg = document.querySelector('.img-full-bg');
+        if (img.classList.contains('on')) {
+            img.classList.remove('on');
+            imgBg.classList.remove('on');
         } else {
-            img.classList.add('full');
+            img.classList.add('on');
+            imgBg.classList.add('on');
         }
     }
     const handleImages = (e)=> {
         let clickedImg = e.target;
         let imgs = document.querySelectorAll('.img');
+        let url = clickedImg.style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)[1];
         if (clickedImg.classList.contains('on')) {
-            fullScreenImg(clickedImg);
+            setFullImg(url);
+            fullScreenImg();
+            console.log(url);
             return;
         }
         imgs.forEach((img) => {
@@ -228,6 +235,8 @@ const Details = () => {
                     </div>
                 )
             }
+            <div className="img-full-bg"></div>
+            <div className="img-full" onClick={fullScreenImg} style={{backgroundImage:`url(${fullImg})`}}></div>
             <div className={blur ? 'blur on' : 'blur'}></div>
         </div>
     )
