@@ -224,6 +224,9 @@ const Details = () => {
                         </div>
                         <div className="btn" onClick={()=>{updateMap(); blurSet();}}>Map</div>
 
+                    </div>
+                )
+            }
                         {(map === 'on' &&
                             <div className="popup map-container">
                             <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
@@ -233,12 +236,9 @@ const Details = () => {
                             </div>)}
                         { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
                         {/* <Footer /> */}
-                    </div>
-                )
-            }
             <div className="img-full-bg"></div>
             <div className="img-full" onClick={fullScreenImg} style={{backgroundImage:`url(${fullImg})`}}></div>
-            <div className={blur ? 'blur on' : 'blur'}></div>
+            <div className={blur ? 'img-full-bg on' : 'img-full-bg'}></div>
         </div>
     )
 }
