@@ -174,7 +174,8 @@ const Details = () => {
             getCoordinates();
         }, [location]);
     return (
-        <div className={blur ? 'details off' : 'details'} >
+        <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.coverImg})`}} >
+            <div className='blurred-bg'></div>
             {
                 !item ? (
                     <Navigate to='/' />
