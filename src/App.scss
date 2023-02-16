@@ -127,6 +127,7 @@ section {
   position: relative;
 }
 .blob {
+  display: none;
   background-image: url(./assets/polygon-scatter-bg.svg);
   width: 90%;
   height: 75%;
@@ -213,7 +214,7 @@ section {
   // align-items: flex-start;
   padding-bottom: 18px;
   background-color: #282c34;
-  border-radius: 12px;
+  border-radius: 30px;
   padding: 0;
   transition: 250ms;
 }
@@ -227,7 +228,7 @@ section {
 .card--image {
   width: 100%;
   height: 320px;
-  border-radius: 9px 9px 0 0;
+  border-radius: 30px 30px 0 0;
   background-size: cover;
   background-position: center;
 }
@@ -239,8 +240,7 @@ section {
   padding: 16px;
   padding-bottom: 24px;
   background-color: #282c34;
-  border-radius: 0 0 9px 9px;
-  /* flex-grow: 1; */
+  border-radius: 0 0 30px 30px;
 }
 .card--stats p {
   text-align: start;
@@ -341,9 +341,6 @@ section {
         border-color: #d8dee1;
       }
     }
-    css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
-      // top: -6px;
-    }
   }
   .login-btn {
     margin-left: 30px;
@@ -387,6 +384,15 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 1;
+  }
+  .blurred-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(12px);
   }
 }
 .details.off {
@@ -419,7 +425,7 @@ section {
   user-select: none;
 }
 .details .back-btn {
-  color: #435b89;
+  color: #688bcc;
 }
 .details .back-btn:hover {
   cursor: pointer;
@@ -437,7 +443,7 @@ section {
   font-family: 'Megrim', cursive;
 }
 .details .nav .about {
-  color: #435b89;
+  color: #688bcc;
   text-transform: lowercase;
 }
 .details .nav .about:hover {
@@ -473,7 +479,7 @@ section {
       display: block;
       width: fit-content;
       height: 360px;
-      border-radius: 12px;
+      border-radius: 30px;
       margin: 2px;
       transition: 400ms;
       background-position: center;
@@ -490,16 +496,42 @@ section {
   .img.off {
       width: 48px;
       transform: scale(0.95);
-      // height: 332px;
   }
-  .img.full {
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: absolute;
-    width: 98%;
-    height: 90%;
-    z-index: 99;
-  }
+}
+.details .img-full {
+  // opacity: 0;
+  z-index: -99;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70%;
+  height: 70%;
+  z-index: -98;
+  transition: 100ms;
+}
+.details .img-full.on {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+.details .img-full-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -99;
+}
+.details .img-full-bg.on {
+  z-index: 99;
+  backdrop-filter: blur(6px);
 }
 .details .content .pics-title {
   display: flex;
