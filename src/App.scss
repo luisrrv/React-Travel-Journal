@@ -3,6 +3,27 @@
 .App {
   text-align: center;
   position: unset;
+  background-image: linear-gradient(
+  135deg,
+  hsl(224deg 62% 7%) 0%,
+  hsl(229deg 44% 8%) 28%,
+  hsl(234deg 32% 9%) 40%,
+  hsl(241deg 23% 9%) 47%,
+  hsl(250deg 18% 9%) 52%,
+  hsl(262deg 14% 10%) 58%,
+  hsl(283deg 10% 10%) 65%,
+  hsl(318deg 9% 10%) 73%,
+  hsl(343deg 11% 11%) 84%,
+  hsl(0deg 12% 12%) 100%
+);
+  // background-image: url(./assets/homeBg.jpeg);
+  // background-attachment: fixed;
+  // background-size: auto 100%;
+  // background-position: center;
+  // background-repeat: no-repeat;
+//   @media (hover: none) {
+//     background-attachment: initial;
+//  }
 }
 .App.off {
   position: fixed;
