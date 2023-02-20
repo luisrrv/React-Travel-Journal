@@ -1,5 +1,5 @@
 
-import { GoogleMap } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 
 
 const Map = (props) => {
@@ -19,7 +19,14 @@ const Map = (props) => {
         center={center}
         zoom={10}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
+      <Marker 
+        // url="https://img.icons8.com/officel/512/visit.png"
+        key={props.title}
+        position={{
+            lat: props.coordinates.lat,
+            lng: props.coordinates.lng
+        }}
+      />
         <></>
       </GoogleMap>
   )
