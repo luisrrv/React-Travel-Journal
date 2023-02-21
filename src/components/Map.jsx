@@ -1,5 +1,7 @@
 
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
+// import { React, useState, useEffect } from 'react';
+// import Data from '../Data'
 
 
 const Map = (props) => {

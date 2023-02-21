@@ -417,7 +417,7 @@ section {
   }
   .map-marker {
     transition: 200ms;
-    border-radius: 50%;
+    border-radius: 8px 8px 8px 8px;
   }
 }
 .details.off {

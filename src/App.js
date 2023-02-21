@@ -9,13 +9,25 @@ import Footer from './components/Footer';
 // import { BsFillPinMapFill } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
-import { app } from './firebase-config';
+import { app, db } from './firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-// import { collection, getDocs, doc } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 
 function App() {
+  const usersCollectionRef = collection(db, "Places");
+  const [locations, setLocations] = useState([]);
+  useEffect(() => {
+    const getLocations = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+    }
+    getLocations();
+  }, []);
+  // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
+  console.log(locations);
+
   const navigate = useNavigate();
   var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')

@@ -57,7 +57,7 @@ const Details = () => {
         if (clickedImg.classList.contains('on')) {
             setFullImg(url);
             fullScreenImg();
-            console.log(url);
+            // console.log(url);
             return;
         }
         imgs.forEach((img) => {
@@ -81,7 +81,7 @@ const Details = () => {
                         imgs[index+1].classList.add('off');
                     }
                 } else if (windowWidth >= 700) {
-                    console.log(index)
+                    // console.log(index)
                     if (index === 0) {
                         imgs[index+1].classList.add('off');
                         imgs[index+2].classList.add('off');
