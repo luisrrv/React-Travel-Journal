@@ -165,14 +165,28 @@ const Details = () => {
         const getCoordinates = async () => {
             const response = await fetch(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
-                );
-                const data = await response.json();
-                const { lat, lng } = data.results[0].geometry.location;
-                setCoordinates({ lat, lng });
-            };
-            
-            getCoordinates();
-        }, [location]);
+            );
+            const data = await response.json();
+            const { lat, lng } = data.results[0].geometry.location;
+            setCoordinates({ lat, lng });
+        };
+        getCoordinates();
+    }, [location]);
+    useEffect(() => {
+        setTimeout(function(){
+            let img = document.querySelectorAll('.map img');
+            (img.length > 0) && img[0].classList.add('map-marker');
+        },150)
+    }, [map]);
+
+    // function CustomMarker() {
+    //     return (
+    //       <div className="marker">
+    //         {item.title}
+    //       </div>
+    //     );
+    //   }
+
     return (
         <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.coverImg})`}} >
             <div className='blurred-bg'></div>
@@ -231,7 +245,7 @@ const Details = () => {
                             <div className="popup map-container">
                             <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
                             <div className="map">
-                                <Map coordinates={coordinates} />
+                                <Map coordinates={coordinates} title={item.title} coverImg={item.coverImg}/>
                             </div>
                             </div>)}
                         { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }

@@ -415,6 +415,10 @@ section {
     height: 100%;
     backdrop-filter: blur(12px);
   }
+  .map-marker {
+    transition: 200ms;
+    border-radius: 50%;
+  }
 }
 .details.off {
   position: fixed;
