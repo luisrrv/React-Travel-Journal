@@ -172,6 +172,12 @@ const Details = () => {
         };
         getCoordinates();
     }, [location]);
+    useEffect(() => {
+        setTimeout(function(){
+            let img = document.querySelectorAll('.map img');
+            (img.length > 0) && img[0].classList.add('map-marker');
+        },150)
+    }, [map]);
 
     // function CustomMarker() {
     //     return (
@@ -239,7 +245,7 @@ const Details = () => {
                             <div className="popup map-container">
                             <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
                             <div className="map">
-                                <Map coordinates={coordinates} title={item.title}/>
+                                <Map coordinates={coordinates} title={item.title} coverImg={item.coverImg}/>
                             </div>
                             </div>)}
                         { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
