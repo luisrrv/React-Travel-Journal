@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 // import Footer from './Footer';
-import Data from '../Data';
+// import Data from '../Data';
 import Map from './Map';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
@@ -10,14 +10,17 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
+    let data = JSON.parse(localStorage.getItem('locations'));
+    const [locations] = useState(data);
+    console.log('getting locations from local storage...')
+    
     const windowWidth = window.innerWidth;
     const id = useParams()['*'];
-    const item = Data[id -1];
+    const item = locations[id -1];
     const [map, setMap] = useState('off');
     const [details, setDetails] = useState('off');
     const [blur, setBlur] = useState(false);
     const [fullImg, setFullImg] = useState('');
-
     useEffect(() => {
         item.title && (document.title = `${item.title} - My Travel Journal`);
     },[item.title]);
@@ -188,7 +191,7 @@ const Details = () => {
     //   }
 
     return (
-        <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.coverImg})`}} >
+        <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.cover_img})`}} >
             <div className='blurred-bg'></div>
             {
                 !item ? (
@@ -208,7 +211,7 @@ const Details = () => {
                             <div className="pics-title">pics taken <HiChevronDoubleRight /></div>
                             {windowWidth < 700 && (
                                 <div className="pics">
-                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.coverImg})`}} alt="selfie" />
+                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.cover_img})`}} alt="selfie" />
                                         <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
                                         <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
                                         <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
@@ -222,7 +225,7 @@ const Details = () => {
                                 )}
                             {windowWidth >= 700 && (
                                 <div className="pics">
-                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.coverImg})`}} alt="selfie" />
+                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.cover_img})`}} alt="selfie" />
                                         <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
                                         <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
                                         <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
@@ -245,7 +248,7 @@ const Details = () => {
                             <div className="popup map-container">
                             <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
                             <div className="map">
-                                <Map coordinates={coordinates} title={item.title} coverImg={item.coverImg}/>
+                                <Map coordinates={coordinates} title={item.title} cover_img={item.cover_img}/>
                             </div>
                             </div>)}
                         { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }

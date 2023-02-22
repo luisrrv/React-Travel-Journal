@@ -4,7 +4,7 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Card from './components/Card'
 import Login from './components/Login'
-import Data from './Data'
+// import Data from './Data'
 import Footer from './components/Footer';
 // import { BsFillPinMapFill } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
@@ -18,18 +18,55 @@ import { collection, getDocs } from 'firebase/firestore'
 function App() {
   const usersCollectionRef = collection(db, "Places");
   const [locations, setLocations] = useState([]);
+  // const [coordinates, setCoordinates] = useState(null);
+
   useEffect(() => {
+
     const getLocations = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+        const data = await getDocs(usersCollectionRef);
+        setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+        // setLocations(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)));
     }
+
     getLocations();
+    console.log(locations)
+
   }, []);
-  // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
+
+  // useEffect(() => {
+
+  //   locations && locations.sort((a,b)=> (a.my_id < b.my_id ? -1 : 1)).forEach(location => {
+  //     location = location.title.replace(/\s/g , "+");
+  //     const getCoordinates = async () => {
+  //         const response = await fetch(
+  //           `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
+  //         );
+  //         const data = await response.json();
+  //         const { lat, lng } = data.results[0].geometry.location;
+  //         setCoordinates({ lat, lng });
+  //     };
+
+  //     getCoordinates();
+  // })
+
+  // let nLocations = locations.forEach(location => {
+  //     location.coordinates = coordinates[location.my_id];
+  // })
+
+  // setLocations(nLocations);
+
+  // },[])
+
+  // console.log(coordinates);
   console.log(locations);
 
+  useEffect(() => {
+    localStorage.setItem('locations', JSON.stringify(locations));
+  }, [locations]);  
+  // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
+
   const navigate = useNavigate();
-  var reversedData = [...Data].reverse();
+  // var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
     // authToken ? console.log('Logged in') : console.log('Not logged in');
@@ -125,7 +162,7 @@ const blurSet = () => {
       <section id='cards-list' className='cards-list'>
       {/* <div className="all"><BsFillPinMapFill color='#ffae00' /> All Locations</div> */}
       {
-        reversedData.map(item => {
+        locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map(item => {
           return (
             <Card
                 key={item.id}
