@@ -18,51 +18,78 @@ import { collection, getDocs } from 'firebase/firestore'
 function App() {
   const usersCollectionRef = collection(db, "Places");
   const [locations, setLocations] = useState([]);
-  // const [coordinates, setCoordinates] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
+  const [get, setGet] = useState(false);
+  let coors = [];
 
-  useEffect(() => {
-
-    const getLocations = async () => {
-        const data = await getDocs(usersCollectionRef);
-        setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-        // setLocations(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)));
-    }
-
-    getLocations();
-    console.log(locations)
-
-  }, []);
+  const getLocations = async () => {
+      console.log('Getting locations...');
+      const data = await getDocs(usersCollectionRef);
+      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+  }
 
   // useEffect(() => {
-
-  //   locations && locations.sort((a,b)=> (a.my_id < b.my_id ? -1 : 1)).forEach(location => {
-  //     location = location.title.replace(/\s/g , "+");
-  //     const getCoordinates = async () => {
-  //         const response = await fetch(
-  //           `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
-  //         );
-  //         const data = await response.json();
-  //         const { lat, lng } = data.results[0].geometry.location;
-  //         setCoordinates({ lat, lng });
-  //     };
-
-  //     getCoordinates();
-  // })
-
-  // let nLocations = locations.forEach(location => {
-  //     location.coordinates = coordinates[location.my_id];
-  // })
-
-  // setLocations(nLocations);
-
-  // },[])
-
-  // console.log(coordinates);
-  console.log(locations);
+  //   setGet(true);
+  // }, [])
 
   useEffect(() => {
-    localStorage.setItem('locations', JSON.stringify(locations));
-  }, [locations]);  
+    if (!get) return;
+    getLocations();
+  }, [get]);
+
+  useEffect(() => {
+    get && localStorage.setItem('locations', JSON.stringify(locations));
+  }, [get, locations]);  
+
+  useEffect(() => {
+    setTimeout(function() {
+      setGet(false);
+    },500);
+  },[])
+
+  const getFromAPI = async (location) => {
+    // debugger;
+    if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
+    console.log('Getting coordinates from api...');
+    let res = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
+    );
+    let data = await res.json();
+    let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
+    coors.push(coor);
+    localStorage.setItem('coordinates', JSON.stringify(coors));
+    setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
+    console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
+  }
+
+  const getCoordinates = () => {
+    locations.forEach(location => {
+      getFromAPI(location);
+    })
+  }
+
+  
+  useEffect(() => {
+    console.log('Getting locations from local storage...');
+    setLocations(JSON.parse(localStorage.getItem('locations')));
+  },[])
+
+  useEffect(() => {
+    locations && getCoordinates();
+  },[locations])
+
+  // useEffect(()=> {
+  //   console.log('setting coordinates...');
+  //   setCoordinates(coors);
+  // },[])
+  
+  // useEffect(() => {
+  //   localStorage.setItem('coordinates', JSON.stringify(coordinates));
+  // }, [coordinates]);  
+
+  // console.log(coors);
+  // console.log(locations);
+
   // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
 
   const navigate = useNavigate();

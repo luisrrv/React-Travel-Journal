@@ -10,9 +10,9 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
+    console.log('Getting locations from local storage...')
     let data = JSON.parse(localStorage.getItem('locations'));
     const [locations] = useState(data);
-    console.log('getting locations from local storage...')
     
     const windowWidth = window.innerWidth;
     const id = useParams()['*'];
@@ -164,6 +164,7 @@ const Details = () => {
     }
     const location = item.location.replace(/\s/g , "+");
     const [coordinates, setCoordinates] = useState(null);
+    
     useEffect(() => {
         const getCoordinates = async () => {
             const response = await fetch(
@@ -175,6 +176,7 @@ const Details = () => {
         };
         getCoordinates();
     }, [location]);
+
     useEffect(() => {
         setTimeout(function(){
             let img = document.querySelectorAll('.map img');
