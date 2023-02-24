@@ -59,7 +59,7 @@ function App() {
     coors.push(coor);
     localStorage.setItem('coordinates', JSON.stringify(coors));
     setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
-    console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
+    // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
   }
 
   const getCoordinates = () => {
@@ -76,16 +76,7 @@ function App() {
 
   useEffect(() => {
     locations && getCoordinates();
-  },[locations])
-
-  // useEffect(()=> {
-  //   console.log('setting coordinates...');
-  //   setCoordinates(coors);
-  // },[])
-  
-  // useEffect(() => {
-  //   localStorage.setItem('coordinates', JSON.stringify(coordinates));
-  // }, [coordinates]);  
+  },[locations]) 
 
   // console.log(coors);
   // console.log(locations);
@@ -189,7 +180,8 @@ const blurSet = () => {
       <section id='cards-list' className='cards-list'>
       {/* <div className="all"><BsFillPinMapFill color='#ffae00' /> All Locations</div> */}
       {
-        locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map(item => {
+        // .sort((a,b)=> (a.my_id < b.my_id ? 1 : -1))
+        locations && locations.map(item => {
           return (
             <Card
                 key={item.id}

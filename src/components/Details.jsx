@@ -16,7 +16,10 @@ const Details = () => {
     
     const windowWidth = window.innerWidth;
     const id = useParams()['*'];
-    const item = locations[id -1];
+    let item
+    locations.forEach(location=> {
+        (location.my_id === parseInt(id)) && (item = location);
+    });
     const [map, setMap] = useState('off');
     const [details, setDetails] = useState('off');
     const [blur, setBlur] = useState(false);
