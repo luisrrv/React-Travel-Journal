@@ -4,9 +4,8 @@ import { Link, useParams, Navigate } from 'react-router-dom';
 // import Data from '../Data';
 import Map from './Map';
 import { AiFillCloseCircle } from 'react-icons/ai'
+import { CgCloseO } from 'react-icons/cg'
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
-
-
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
@@ -251,7 +250,7 @@ const Details = () => {
             }
                         {(map === 'on' &&
                             <div className="popup map-container">
-                            <div onClick={()=>{closeMap(); blurSet();}} className="x"><AiFillCloseCircle/></div>
+                            <div onClick={()=>{closeMap(); blurSet();}} className="x"><CgCloseO size={30}/></div>
                             <div className="map">
                                 <Map coordinates={coordinates} title={item.title} cover_img={item.cover_img}/>
                             </div>
