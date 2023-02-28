@@ -4,20 +4,89 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Card from './components/Card'
 import Login from './components/Login'
-import Data from './Data'
+// import Data from './Data'
 import Footer from './components/Footer';
 // import { BsFillPinMapFill } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
-import { app } from './firebase-config';
+import { app, db } from './firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-// import { collection, getDocs, doc } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 
 function App() {
+  const usersCollectionRef = collection(db, "Places");
+  const [locations, setLocations] = useState([]);
+  const [setCoordinates] = useState(null);
+  const [get, setGet] = useState(false);
+  let coors = [];
+
+  const getLocations = async () => {
+      console.log('Getting locations...');
+      const data = await getDocs(usersCollectionRef);
+      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+  }
+
+  // useEffect(() => {
+  //   setGet(true);
+  // }, [])
+
+  useEffect(() => {
+    if (!get) return;
+    getLocations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [get]);
+
+  useEffect(() => {
+    get && localStorage.setItem('locations', JSON.stringify(locations));
+  }, [get, locations]);  
+
+  useEffect(() => {
+    setTimeout(function() {
+      setGet(false);
+    },500);
+  },[])
+
+  const getFromAPI = async (location) => {
+    // debugger;
+    if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
+    console.log('Getting coordinates from api...');
+    let res = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
+    );
+    let data = await res.json();
+    let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
+    coors.push(coor);
+    localStorage.setItem('coordinates', JSON.stringify(coors));
+    setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
+    // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
+  }
+
+  const getCoordinates = () => {
+    locations.forEach(location => {
+      getFromAPI(location);
+    })
+  }
+
+  
+  useEffect(() => {
+    console.log('Getting locations from local storage...');
+    setLocations(JSON.parse(localStorage.getItem('locations')));
+  },[])
+
+  useEffect(() => {
+    locations && getCoordinates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[locations]) 
+
+  // console.log(coors);
+  // console.log(locations);
+
+  // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
+
   const navigate = useNavigate();
-  var reversedData = [...Data].reverse();
+  // var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
     // authToken ? console.log('Logged in') : console.log('Not logged in');
@@ -113,7 +182,8 @@ const blurSet = () => {
       <section id='cards-list' className='cards-list'>
       {/* <div className="all"><BsFillPinMapFill color='#ffae00' /> All Locations</div> */}
       {
-        reversedData.map(item => {
+        // .sort((a,b)=> (a.my_id < b.my_id ? 1 : -1))
+        locations && locations.map(item => {
           return (
             <Card
                 key={item.id}

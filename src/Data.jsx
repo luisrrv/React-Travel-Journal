@@ -36,7 +36,7 @@ export default [
   {
     id: 4,
     title: "Nikko, Japan",
-    description: "Nikko is a small city in Japan’s Tochigi Prefecture, in the mountains north of Tokyo. It’s the site of Toshogu, the famed Shinto shrine established in 1617 as a lavish memorial for Tokugawa Ieyasu, founding ruler of the Tokugawa shogunate, or Edo Period. The shrine comprises the gilded Yomeimon Gate, the main sanctuary set in a cedar grove and the tomb itself. ",
+    description: "Nikko is a small city in Japan’s Tochigi Prefecture, in the mountains north of Tokyo. It’s the site of Toshogu, the famed Shinto shrine established in 1617 as a lavish memorial for Tokugawa Ieyasu, founding ruler of the Tokugawa shogunate, or Edo Period. The shrine comprises the gilded Yomeimon Gate, the main sanctuary set in a cedar grove and the tomb itself.",
     coverImg: "https://images.unsplash.com/photo-1573696005698-30f96a3bfdc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
     dates: {
         start: "27 July, 2019",
