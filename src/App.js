@@ -20,12 +20,15 @@ function App() {
   const [locations, setLocations] = useState([]);
   const [setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
+
+  !localStorage.getItem('locations') && setGet(true);
+  
   let coors = [];
 
   const getLocations = async () => {
       console.log('Getting locations...');
       const data = await getDocs(usersCollectionRef);
-      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
   }
 
   // useEffect(() => {
@@ -182,8 +185,8 @@ const blurSet = () => {
       <section id='cards-list' className='cards-list'>
       {/* <div className="all"><BsFillPinMapFill color='#ffae00' /> All Locations</div> */}
       {
-        // .sort((a,b)=> (a.my_id < b.my_id ? 1 : -1))
-        locations && locations.map(item => {
+        
+        locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map(item => {
           return (
             <Card
                 key={item.id}
