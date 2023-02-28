@@ -18,7 +18,7 @@ import { collection, getDocs } from 'firebase/firestore'
 function App() {
   const usersCollectionRef = collection(db, "Places");
   const [locations, setLocations] = useState([]);
-  const [coordinates, setCoordinates] = useState(null);
+  const [setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
   let coors = [];
 
@@ -35,6 +35,7 @@ function App() {
   useEffect(() => {
     if (!get) return;
     getLocations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [get]);
 
   useEffect(() => {
@@ -76,6 +77,7 @@ function App() {
 
   useEffect(() => {
     locations && getCoordinates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[locations]) 
 
   // console.log(coors);
