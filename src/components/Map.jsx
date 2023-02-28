@@ -5,12 +5,17 @@ import { React, useState } from 'react';
 
 
 const Map = (props) => {
-    let data = JSON.parse(localStorage.getItem('locations'));
-    let coors = JSON.parse(localStorage.getItem('coordinates'));
+    const data = JSON.parse(localStorage.getItem('locations'));
+    const coors = JSON.parse(localStorage.getItem('coordinates'));
     const [locations] = useState(data.reverse());
     const [mapLoaded, setMapLoaded] = useState(false);
-    console.log(coors);
-
+    // console.log('COORDINATES:',coors);
+    
+    let oCoors = [];
+    locations.forEach(location => {
+        coors.forEach(coor => {coor[0]===location.title && oCoors.push(coor)});
+    })
+    // console.log('ORDERED COORDINATES:',oCoors);
     const handleMapLoad = (map) => {
         map && setMapLoaded(true);
     }
@@ -24,7 +29,14 @@ const Map = (props) => {
         lat: props.coordinates.lat,
         lng: props.coordinates.lng
     };
-    console.log(locations);
+    if (mapLoaded) {
+        setTimeout(function(){
+            document.querySelectorAll('img').forEach((img, index)=> {
+                index < 12 && img.classList.add('map-marker');
+            })
+        },400)
+    }
+    // console.log(locations);
     return (
         <GoogleMap
         onLoad={(map) => handleMapLoad(map)}
@@ -32,34 +44,31 @@ const Map = (props) => {
         center={center}
         zoom={10}
         >
+            {/* <MarkerF position={center}/> */}
         {
             mapLoaded && (
-                locations && locations.forEach(location => {
-                    coors && coors.forEach(coor => {
-                        if (coor[0]===location.title) {
-                            <MarkerF 
-                                icon={{
-                                    // url:("https://img.icons8.com/officel/512/visit.png"),
-                                    url:(location.cover_img),
-                                    scaledSize: new window.google.maps.Size(50, 50),
-                                    // labelOrigin: new window.google.maps.Point(25, -10),
-                                    className: 'map-marker',
-                                }}
-                                // label={{
-                                //     text: props.title, 
-                                //     color: 'black', 
-                                //     fontFamily: "Montserrat", 
-                                //     fontWeight: '700',
-                                //     fontSize: '#484848',
-                                // }}
-                                key={location.title}
-                                position={{
-                                    lat: coor[1][0],
-                                    lng: coor[1][1]
-                                }}
-                            />
-                        }
-                    })
+                locations.map((location, index) => {
+                    return (<MarkerF 
+                        icon={{
+                            // url:("https://img.icons8.com/officel/512/visit.png"),
+                            url:(location.cover_img),
+                            scaledSize: new window.google.maps.Size(50, 50),
+                            labelOrigin: new window.google.maps.Point(25, -10),
+                            className: 'map-marker',
+                        }}
+                        // label={{
+                        //     text: location.title, 
+                        //     color: 'black', 
+                        //     fontFamily: "Montserrat", 
+                        //     fontWeight: '700',
+                        //     fontSize: '#484848',
+                        // }}
+                        key={location.title}
+                        position={{
+                            lat: oCoors[index][1][0],
+                            lng: oCoors[index][1][1]
+                        }}
+                    />)
                 })
             )
         }
