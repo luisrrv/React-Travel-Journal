@@ -16,14 +16,16 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, getDocs } from 'firebase/firestore'
 
 function App() {
-  const usersCollectionRef = collection(db, "Places");
+  
   const [locations, setLocations] = useState([]);
   const [setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
-
-  !localStorage.getItem('locations') && setGet(true);
+  const [loginForm, setLoginForm] = useState('off');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+  const [blur, setBlur] = useState(false);
   
-  let coors = [];
+  const usersCollectionRef = collection(db, "Places");
 
   const getLocations = async () => {
       console.log('Getting locations...');
@@ -31,39 +33,35 @@ function App() {
       setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
   }
 
-  // useEffect(() => {
-  //   setGet(true);
-  // }, [])
-
   useEffect(() => {
     if (!get) return;
+
     getLocations();
+    localStorage.setItem('locations', JSON.stringify(locations));
+
+    setTimeout(()=> {
+      getCoordinates();
+    },500);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [get]);
 
-  useEffect(() => {
-    get && localStorage.setItem('locations', JSON.stringify(locations));
-  }, [get, locations]);  
-
-  useEffect(() => {
-    setTimeout(function() {
-      setGet(false);
-    },500);
-  },[])
-
+  let coors = [];
   const getFromAPI = async (location) => {
     // debugger;
-    if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
-    console.log('Getting coordinates from api...');
-    let res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
-    );
-    let data = await res.json();
-    let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
-    coors.push(coor);
-    localStorage.setItem('coordinates', JSON.stringify(coors));
-    setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
-    // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
+    if (localStorage.getItem('coordinates') && (localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}')) {
+      // if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
+      console.log('Getting coordinates from api...');
+      let res = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
+      );
+      let data = await res.json();
+      let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
+      coors.push(coor);
+      localStorage.setItem('coordinates', JSON.stringify(coors));
+      setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
+      // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
+    }
   }
 
   const getCoordinates = () => {
@@ -78,10 +76,10 @@ function App() {
     setLocations(JSON.parse(localStorage.getItem('locations')));
   },[])
 
-  useEffect(() => {
-    locations && getCoordinates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[locations]) 
+  // useEffect(() => {
+  //   locations && getCoordinates();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[locations]) 
 
   // console.log(coors);
   // console.log(locations);
@@ -100,12 +98,8 @@ function App() {
     }
   }, [authToken]);
 
-  const [loginForm, setLoginForm] = useState('off');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
-  const [blur, setBlur] = useState(false);
-  // const [users, setUsers] = useState([])
-  // const usersCollectionRef = collection(db, "operators");
+
+
   const clearInfo = () => {
     setEmail('');
     setPassword('');
@@ -165,6 +159,22 @@ const blurSet = () => {
   //   getUsers();
   // }, [usersCollectionRef]);
 
+  useEffect(() => {
+    // debugger
+    if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}' || 
+       !localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
+      setGet(true);
+      console.log('getting.. get:',get);
+    } else {
+      setGet(false);
+      console.log('not getting.. get:',get);
+    }
+    // setTimeout(function() {
+    //   get===true && setGet(false);
+    // },1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[get])
+
   return (
     <div className={blur ? 'App off' : 'App'} /*nScroll={handleScroll}*/>
       <ToastContainer
@@ -189,7 +199,7 @@ const blurSet = () => {
         locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map(item => {
           return (
             <Card
-                key={item.id}
+                key={item.my_id}
                 item={item}
                 // {...item}
               />
