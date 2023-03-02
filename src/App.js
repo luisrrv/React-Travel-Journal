@@ -27,24 +27,48 @@ function App() {
   
   const usersCollectionRef = collection(db, "Places");
 
+  const handleGet = () => {
+    console.log('before getting, locations:',JSON.parse(localStorage.getItem('locations')));
+    console.log('before getting, coordinatess:',JSON.parse(localStorage.getItem('coordinates')));
+    if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}' || 
+       !localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
+      setGet(true);
+    } else {
+      setGet(false);
+    }
+  }
+
   const getLocations = async () => {
-      console.log('Getting locations...');
-      const data = await getDocs(usersCollectionRef);
-      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
+    console.log('getting.. get: should be true',get);
+    console.log('Getting locations...');
+    const data = await getDocs(usersCollectionRef);
+    setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
+    console.log(locations);
+
+    localStorage.setItem('locations', JSON.stringify(locations));
+    console.log(JSON.parse(localStorage.getItem('locations')));
+    setTimeout(()=> {
+      getCoordinates();
+    },200);
+  }
+
+  const getCoordinates = () => {
+    locations.forEach(location => {
+      getFromAPI(location);
+    })
   }
 
   useEffect(() => {
-    if (!get) return;
-
-    getLocations();
-    localStorage.setItem('locations', JSON.stringify(locations));
-
-    setTimeout(()=> {
-      getCoordinates();
-    },500);
-
+    handleGet();
+    if (get) {
+      getLocations();
+    } else if (!get) {
+      console.log('not getting.. get:',get);
+      console.log('Getting locations from local storage...');
+      setLocations(JSON.parse(localStorage.getItem('locations')));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [get]);
+  },[get]);
 
   let coors = [];
   const getFromAPI = async (location) => {
@@ -63,23 +87,6 @@ function App() {
       // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
     }
   }
-
-  const getCoordinates = () => {
-    locations.forEach(location => {
-      getFromAPI(location);
-    })
-  }
-
-  
-  useEffect(() => {
-    console.log('Getting locations from local storage...');
-    setLocations(JSON.parse(localStorage.getItem('locations')));
-  },[])
-
-  // useEffect(() => {
-  //   locations && getCoordinates();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[locations]) 
 
   // console.log(coors);
   // console.log(locations);
@@ -150,31 +157,9 @@ const blurSet = () => {
   (loginForm==='on') ? setBlur(false) : setBlur(true);
   // console.log('after',blur);
 }
-  // useEffect(() => {
-  //   const getUsers = async () => {
-  //     const data = await getDocs(usersCollectionRef);
-  //     setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-  //   }
 
   //   getUsers();
   // }, [usersCollectionRef]);
-
-  useEffect(() => {
-    // debugger
-    if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}' || 
-       !localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
-      setGet(true);
-      console.log('getting.. get:',get);
-    } else {
-      setGet(false);
-      console.log('not getting.. get:',get);
-    }
-    // setTimeout(function() {
-    //   get===true && setGet(false);
-    // },1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[get])
-
   return (
     <div className={blur ? 'App off' : 'App'} /*nScroll={handleScroll}*/>
       <ToastContainer
