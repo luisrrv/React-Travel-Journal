@@ -26,69 +26,83 @@ function App() {
   const [blur, setBlur] = useState(false);
   
   const usersCollectionRef = collection(db, "Places");
-
-  const handleGet = () => {
-    // console.log('before getting, locations:',JSON.parse(localStorage.getItem('locations')));
-    // console.log('before getting, coordinatess:',JSON.parse(localStorage.getItem('coordinates')));
-    if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}') {
-      setGet(true);
-    } else {
-      setGet(false);
-    }
-  }
-
-  const getLocations = async () => {
-    console.log('Getting locations from firestore... get:',get);
-    const data = await getDocs(usersCollectionRef);
-    setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
-    console.log(locations);
-
-    localStorage.setItem('locations', JSON.stringify(locations));
-    console.log(JSON.parse(localStorage.getItem('locations')));
-    getCoordinates();
-  }
-
-  let coors = [];
-  const getFromAPI = async (location) => {
-    // debugger;
-    // if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
-    console.log('Getting coordinates from api...');
-    let res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
-    );
-    let data = await res.json();
-    let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
-    coors.push(coor);
-    localStorage.setItem('coordinates', JSON.stringify(coors));
-    setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
-    // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
-  }
-
-  const getCoordinates = () => {
-    console.log(localStorage.getItem('coordinates'));
-    if (!localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
-      locations.forEach(location => {
-        getFromAPI(location);
-      })
-    }
-  }
-
+  
+  
+  // get data needed on load
   useEffect(() => {
-    handleGet();
-    if (get) {
-      getLocations();
-    } else if (!get) {
-      console.log('Getting locations from local storage... get:',get);
-      setLocations(JSON.parse(localStorage.getItem('locations')));
+      
+    let locs;
+    let coors;
+      
+    const handleGet = () => {
+        if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}') {
+          setGet(true);
+        } else {
+          setGet(false);
+        }
     }
+
+    const getLocations = async () => {
+        console.log('Getting locations from firestore... get:',get);
+        const data = await getDocs(usersCollectionRef);
+        locs = (data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
+        console.log(locs)
+        setLocations(locs);
+        localStorage.setItem('locations', JSON.stringify(locs));
+        console.log(JSON.parse(localStorage.getItem('locations')));
+        await getCoordinates();
+    }
+
+    const getFromAPI = async (location) => {
+        // if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
+        console.log('Getting coordinates from api...');
+        let res = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
+        );
+        let data = await res.json();
+        let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
+        coors.push(coor);
+        setCoordinates(coors);
+        localStorage.setItem('coordinates', JSON.stringify(coors));
+        // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
+    }
+    const getCoordinates = () => {
+        console.log(localStorage.getItem('coordinates'));
+        if (!localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
+          locations.forEach(location => {
+            getFromAPI(location);
+          })
+        } else {
+            setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
+        }
+    }
+
+    handleGet();
+
+    if (get) {
+        getLocations();
+        // console.log(locations);
+        // setLocations(locs);
+    //   localStorage.setItem('locations', JSON.stringify(locations));
+    //   console.log(JSON.parse(localStorage.getItem('locations')));
+    } else if (!get) {
+        console.log('Getting locations from local storage... get:',get);
+        setLocations(JSON.parse(localStorage.getItem('locations')));
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[get]);
+
+
 
   // console.log(coors);
   // console.log(locations);
 
   // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
 
+
+
+  // auth
   const navigate = useNavigate();
   // var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
@@ -101,20 +115,18 @@ function App() {
     }
   }, [authToken]);
 
-
-
   const clearInfo = () => {
     setEmail('');
     setPassword('');
   }
   const handleAction = () => {
-    const authentication = getAuth(app);
-    if((email==='') && (password==='')) {
-      toast.error('Please check your email/password');
-      return;
-    }
+  const authentication = getAuth(app);
+  if((email==='') && (password==='')) {
+    toast.error('Please check your email/password');
+    return;
+  }
 
-    // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
+  // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
 
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
