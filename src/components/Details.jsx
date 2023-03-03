@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
 // import Footer from './Footer';
 // import Data from '../Data';
 import Map from './Map';
@@ -9,9 +9,24 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
+    const navigate = useNavigate();
     console.log('Getting locations from local storage...')
-    let data = JSON.parse(localStorage.getItem('locations'));
-    const [locations] = useState(data);
+    let locs = JSON.parse(localStorage.getItem('locations'));
+    useEffect(()=>{
+        if (!locs) {
+            return navigate('/');
+        } 
+    },[navigate,locs]);
+    const [locations] = useState(locs);
+    
+    console.log('Getting coordinates from local storage...')
+    let coors = JSON.parse(localStorage.getItem('coordinates'));
+    useEffect(()=>{
+        if (!coors) {
+            navigate('/');
+        }
+    },[navigate, coors]);
+    const [coordinates] = useState(coors);
     
     const windowWidth = window.innerWidth;
     const id = useParams()['*'];
@@ -164,20 +179,20 @@ const Details = () => {
         // console.log('CLICKED:', clickedImg);
         // console.log('ALL:',imgs);
     }
-    const location = item.location.replace(/\s/g , "+");
-    const [coordinates, setCoordinates] = useState(null);
+    // const location = item.location.replace(/\s/g , "+");
+    // const [coordinates, setCoordinates] = useState(null);
     
-    useEffect(() => {
-        const getCoordinates = async () => {
-            const response = await fetch(
-                `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
-            );
-            const data = await response.json();
-            const { lat, lng } = data.results[0].geometry.location;
-            setCoordinates({ lat, lng });
-        };
-        getCoordinates();
-    }, [location]);
+    // useEffect(() => {
+    //     const getCoordinates = async () => {
+    //         const response = await fetch(
+    //             `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
+    //         );
+    //         const data = await response.json();
+    //         const { lat, lng } = data.results[0].geometry.location;
+    //         setCoordinates({ lat, lng });
+    //     };
+    //     getCoordinates();
+    // }, [location]);
 
     useEffect(() => {
         setTimeout(function(){

@@ -18,7 +18,7 @@ import { collection, getDocs } from 'firebase/firestore'
 function App() {
   
   const [locations, setLocations] = useState([]);
-  const [setCoordinates] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
   const [loginForm, setLoginForm] = useState('off');
   const [email, setEmail] = useState('');
@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
       
     let locs;
-    let coors;
+    let coors = [];
       
     const handleGet = () => {
         if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}') {
@@ -46,15 +46,12 @@ function App() {
         console.log('Getting locations from firestore... get:',get);
         const data = await getDocs(usersCollectionRef);
         locs = (data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
-        console.log(locs)
         setLocations(locs);
         localStorage.setItem('locations', JSON.stringify(locs));
-        console.log(JSON.parse(localStorage.getItem('locations')));
         await getCoordinates();
     }
 
     const getFromAPI = async (location) => {
-        // if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
         console.log('Getting coordinates from api...');
         let res = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
@@ -64,14 +61,12 @@ function App() {
         coors.push(coor);
         setCoordinates(coors);
         localStorage.setItem('coordinates', JSON.stringify(coors));
-        // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
     }
     const getCoordinates = () => {
-        console.log(localStorage.getItem('coordinates'));
         if (!localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
-          locations.forEach(location => {
-            getFromAPI(location);
-          })
+            locs.forEach(location => {
+                getFromAPI(location);
+            })
         } else {
             setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
         }
@@ -81,10 +76,6 @@ function App() {
 
     if (get) {
         getLocations();
-        // console.log(locations);
-        // setLocations(locs);
-    //   localStorage.setItem('locations', JSON.stringify(locations));
-    //   console.log(JSON.parse(localStorage.getItem('locations')));
     } else if (!get) {
         console.log('Getting locations from local storage... get:',get);
         setLocations(JSON.parse(localStorage.getItem('locations')));
@@ -93,21 +84,12 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[get]);
 
-
-
-  // console.log(coors);
-  // console.log(locations);
-
-  // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
-
-
+  // INFO: To sort: locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1))
 
   // auth
   const navigate = useNavigate();
-  // var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
-    // authToken ? console.log('Logged in') : console.log('Not logged in');
     document.title = 'My Travel Journal';
     if (authToken) {
       setLoginForm('off');
@@ -161,9 +143,7 @@ function App() {
     navigate('/');
 }
 const blurSet = () => {
-  // console.log('before',blur);
   (loginForm==='on') ? setBlur(false) : setBlur(true);
-  // console.log('after',blur);
 }
 
   //   getUsers();
