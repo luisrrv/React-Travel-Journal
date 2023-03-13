@@ -9,23 +9,31 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
-    console.log('Getting locations from local storage...')
-    let data = JSON.parse(localStorage.getItem('locations'));
-    const [locations] = useState(data);
+    // console.log('Getting locations from local storage...')
+    let locs = JSON.parse(localStorage.getItem('locations'));
+    
+    const [locations] = useState(locs);
+    
+    // console.log('Getting coordinates from local storage...')
+    let coors = JSON.parse(localStorage.getItem('coordinates'));
+
+    const [coordinates] = useState(coors);
     
     const windowWidth = window.innerWidth;
     const id = useParams()['*'];
     let item
-    locations.forEach(location=> {
+    locations && locations.forEach(location=> {
         (location.my_id === parseInt(id)) && (item = location);
     });
     const [map, setMap] = useState('off');
     const [details, setDetails] = useState('off');
     const [blur, setBlur] = useState(false);
     const [fullImg, setFullImg] = useState('');
+
     useEffect(() => {
-        item.title && (document.title = `${item.title} - My Travel Journal`);
-    },[item.title]);
+        item && item.title && (document.title = `${item.title} - My Travel Journal`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[/*item.title*/]);
 
     const updateMap = ()=> {
         map==='off' ? setMap('on') && setDetails('off') : setMap('off');
@@ -164,20 +172,6 @@ const Details = () => {
         // console.log('CLICKED:', clickedImg);
         // console.log('ALL:',imgs);
     }
-    const location = item.location.replace(/\s/g , "+");
-    const [coordinates, setCoordinates] = useState(null);
-    
-    useEffect(() => {
-        const getCoordinates = async () => {
-            const response = await fetch(
-                `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
-            );
-            const data = await response.json();
-            const { lat, lng } = data.results[0].geometry.location;
-            setCoordinates({ lat, lng });
-        };
-        getCoordinates();
-    }, [location]);
 
     useEffect(() => {
         setTimeout(function(){
@@ -193,8 +187,8 @@ const Details = () => {
     //       </div>
     //     );
     //   }
-
     return (
+        locations ? (
         <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.cover_img})`}} >
             <div className='blurred-bg'></div>
             {
@@ -261,6 +255,7 @@ const Details = () => {
             <div className="img-full" onClick={fullScreenImg} style={{backgroundImage:`url(${fullImg})`}}></div>
             <div className={blur ? 'img-full-bg on' : 'img-full-bg'}></div>
         </div>
+        ) : ( <Navigate to='/' /> )
     )
 }
 

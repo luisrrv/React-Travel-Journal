@@ -16,83 +16,81 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, getDocs } from 'firebase/firestore'
 
 function App() {
-  const usersCollectionRef = collection(db, "Places");
+  
   const [locations, setLocations] = useState([]);
-  const [setCoordinates] = useState(null);
+//   const [coordinates, setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
-
-  !localStorage.getItem('locations') && setGet(true);
+  const [loginForm, setLoginForm] = useState('off');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+  const [blur, setBlur] = useState(false);
   
-  let coors = [];
-
-  const getLocations = async () => {
-      console.log('Getting locations...');
-      const data = await getDocs(usersCollectionRef);
-      setLocations(data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
-  }
-
-  // useEffect(() => {
-  //   setGet(true);
-  // }, [])
-
-  useEffect(() => {
-    if (!get) return;
-    getLocations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [get]);
-
-  useEffect(() => {
-    get && localStorage.setItem('locations', JSON.stringify(locations));
-  }, [get, locations]);  
-
-  useEffect(() => {
-    setTimeout(function() {
-      setGet(false);
-    },500);
-  },[])
-
-  const getFromAPI = async (location) => {
-    // debugger;
-    if (JSON.parse(localStorage.getItem('coordinates').length > 0)) return;
-    console.log('Getting coordinates from api...');
-    let res = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
-    );
-    let data = await res.json();
-    let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
-    coors.push(coor);
-    localStorage.setItem('coordinates', JSON.stringify(coors));
-    setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
-    // console.log('LS Coordinates',JSON.parse(localStorage.getItem('coordinates')));
-  }
-
-  const getCoordinates = () => {
-    locations.forEach(location => {
-      getFromAPI(location);
-    })
-  }
-
+  const usersCollectionRef = collection(db, "Places");
   
+  
+  // get data needed on load
   useEffect(() => {
-    console.log('Getting locations from local storage...');
-    setLocations(JSON.parse(localStorage.getItem('locations')));
-  },[])
+      
+    let locs;
+    let coors = [];
+      
+    const handleGet = () => {
+        if(!localStorage.getItem('locations') || localStorage.getItem('locations')==='null' || localStorage.getItem('locations')==='' || localStorage.getItem('locations')==='[]' || localStorage.getItem('locations')==='{}') {
+          setGet(true);
+        } else {
+          setGet(false);
+        }
+    }
 
-  useEffect(() => {
-    locations && getCoordinates();
+    const getLocations = async () => {
+        console.log('Getting locations from firestore... get:',get);
+        const data = await getDocs(usersCollectionRef);
+        locs = (data.docs.map((doc) => ({...doc.data(), id: doc.my_id })));
+        setLocations(locs);
+        localStorage.setItem('locations', JSON.stringify(locs));
+        await getCoordinates();
+    }
+
+    const getFromAPI = async (location) => {
+        console.log('Getting coordinates from api...');
+        let res = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${location.title}&key=${process.env.REACT_APP_MAPS_KEY}`
+        );
+        let data = await res.json();
+        let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
+        coors.push(coor);
+        // setCoordinates(coors);
+        localStorage.setItem('coordinates', JSON.stringify(coors));
+    }
+    const getCoordinates = () => {
+        if (!localStorage.getItem('coordinates') || localStorage.getItem('coordinates')!=='' || localStorage.getItem('coordinates')!=='[]' || localStorage.getItem('coordinates')!=='null' || localStorage.getItem('coordinates')!=='{}') {
+            locs.forEach(location => {
+                getFromAPI(location);
+            })
+        } 
+        // else {
+            // setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
+        // }
+    }
+
+    handleGet();
+
+    if (get) {
+        getLocations();
+    } else if (!get) {
+        // console.log('Getting locations from local storage... get:',get);
+        setLocations(JSON.parse(localStorage.getItem('locations')));
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[locations]) 
+  },[get]);
 
-  // console.log(coors);
-  // console.log(locations);
+  // INFO: To sort: locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1))
 
-  // console.log(locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)))
-
+  // auth
   const navigate = useNavigate();
-  // var reversedData = [...Data].reverse();
   let authToken = sessionStorage.getItem('Auth Token')
   useEffect(() => {
-    // authToken ? console.log('Logged in') : console.log('Not logged in');
     document.title = 'My Travel Journal';
     if (authToken) {
       setLoginForm('off');
@@ -100,24 +98,18 @@ function App() {
     }
   }, [authToken]);
 
-  const [loginForm, setLoginForm] = useState('off');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
-  const [blur, setBlur] = useState(false);
-  // const [users, setUsers] = useState([])
-  // const usersCollectionRef = collection(db, "operators");
   const clearInfo = () => {
     setEmail('');
     setPassword('');
   }
   const handleAction = () => {
-    const authentication = getAuth(app);
-    if((email==='') && (password==='')) {
-      toast.error('Please check your email/password');
-      return;
-    }
+  const authentication = getAuth(app);
+  if((email==='') && (password==='')) {
+    toast.error('Please check your email/password');
+    return;
+  }
 
-    // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
+  // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
 
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
@@ -152,19 +144,11 @@ function App() {
     navigate('/');
 }
 const blurSet = () => {
-  // console.log('before',blur);
   (loginForm==='on') ? setBlur(false) : setBlur(true);
-  // console.log('after',blur);
 }
-  // useEffect(() => {
-  //   const getUsers = async () => {
-  //     const data = await getDocs(usersCollectionRef);
-  //     setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-  //   }
 
   //   getUsers();
   // }, [usersCollectionRef]);
-
   return (
     <div className={blur ? 'App off' : 'App'} /*nScroll={handleScroll}*/>
       <ToastContainer
@@ -189,7 +173,7 @@ const blurSet = () => {
         locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map(item => {
           return (
             <Card
-                key={item.id}
+                key={item.my_id}
                 item={item}
                 // {...item}
               />
