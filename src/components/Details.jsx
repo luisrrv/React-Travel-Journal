@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Link, useParams, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useParams, Navigate } from 'react-router-dom';
 // import Footer from './Footer';
 // import Data from '../Data';
 import Map from './Map';
@@ -9,29 +9,50 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    // const [isLocationsExists, setIsLocationsExists,] = useState(localStorage.getItem('locations'));
+    // const [isCoordinatesExists, setIsCoordinatesExists,] = useState(localStorage.getItem('coordinates'));
+
+    // // useEffect(() => {
+    // //     // const handleStorageChange = () => {
+    // //         // };
+            
+    // //         // window.addEventListener('storage', handleStorageChange);
+            
+    // //         // return () => {
+    // //             // window.removeEventListener('storage', handleStorageChange);
+    // //             // };
+    // //         }, []);
+            
+    // useEffect(() => {
+    //     setIsLocationsExists(localStorage.getItem('locations'));
+    //     setIsCoordinatesExists(localStorage.getItem('coordinates'));
+
+    //     if (!isLocationsExists) {
+    //         console.log('redirecting...');
+    //         navigate('/');
+    //     }
+    //     if (!isCoordinatesExists) {
+    //         console.log('redirecting...');
+    //         navigate('/');
+    //     }
+    // }, [isLocationsExists, isCoordinatesExists, navigate]);
+
+
     console.log('Getting locations from local storage...')
     let locs = JSON.parse(localStorage.getItem('locations'));
-    useEffect(()=>{
-        if (!locs) {
-            return navigate('/');
-        } 
-    },[navigate,locs]);
+    
     const [locations] = useState(locs);
     
     console.log('Getting coordinates from local storage...')
     let coors = JSON.parse(localStorage.getItem('coordinates'));
-    useEffect(()=>{
-        if (!coors) {
-            navigate('/');
-        }
-    },[navigate, coors]);
+
     const [coordinates] = useState(coors);
     
     const windowWidth = window.innerWidth;
     const id = useParams()['*'];
     let item
-    locations.forEach(location=> {
+    locations && locations.forEach(location=> {
         (location.my_id === parseInt(id)) && (item = location);
     });
     const [map, setMap] = useState('off');
@@ -39,8 +60,8 @@ const Details = () => {
     const [blur, setBlur] = useState(false);
     const [fullImg, setFullImg] = useState('');
     useEffect(() => {
-        item.title && (document.title = `${item.title} - My Travel Journal`);
-    },[item.title]);
+        item && item.title && (document.title = `${item.title} - My Travel Journal`);
+    },[/*item.title*/]);
 
     const updateMap = ()=> {
         map==='off' ? setMap('on') && setDetails('off') : setMap('off');
@@ -210,6 +231,7 @@ const Details = () => {
     //   }
 
     return (
+        locations ? (
         <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.cover_img})`}} >
             <div className='blurred-bg'></div>
             {
@@ -276,6 +298,7 @@ const Details = () => {
             <div className="img-full" onClick={fullScreenImg} style={{backgroundImage:`url(${fullImg})`}}></div>
             <div className={blur ? 'img-full-bg on' : 'img-full-bg'}></div>
         </div>
+        ) : ( <Navigate to='/' /> )
     )
 }
 
