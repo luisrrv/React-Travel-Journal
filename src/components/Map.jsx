@@ -1,8 +1,6 @@
 
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
 import { React, useState } from 'react';
-// import Data from '../Data'
-
 
 const Map = (props) => {
     const data = JSON.parse(localStorage.getItem('locations'));
@@ -25,9 +23,15 @@ const Map = (props) => {
       height: '100%',
       borderRadius: '8px',
     };
+    let thisCoordinates;
+    props.coordinates.forEach(coor=>{
+        if(coor[0]===props.title) {
+            thisCoordinates = coor[1]
+        }
+    })
     const center = {
-        lat: props.coordinates.lat,
-        lng: props.coordinates.lng
+        lat: thisCoordinates[0],
+        lng: thisCoordinates[1]
     };
     if (mapLoaded) {
         setTimeout(function(){

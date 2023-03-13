@@ -9,36 +9,6 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
-    // const navigate = useNavigate();
-    // const [isLocationsExists, setIsLocationsExists,] = useState(localStorage.getItem('locations'));
-    // const [isCoordinatesExists, setIsCoordinatesExists,] = useState(localStorage.getItem('coordinates'));
-
-    // // useEffect(() => {
-    // //     // const handleStorageChange = () => {
-    // //         // };
-            
-    // //         // window.addEventListener('storage', handleStorageChange);
-            
-    // //         // return () => {
-    // //             // window.removeEventListener('storage', handleStorageChange);
-    // //             // };
-    // //         }, []);
-            
-    // useEffect(() => {
-    //     setIsLocationsExists(localStorage.getItem('locations'));
-    //     setIsCoordinatesExists(localStorage.getItem('coordinates'));
-
-    //     if (!isLocationsExists) {
-    //         console.log('redirecting...');
-    //         navigate('/');
-    //     }
-    //     if (!isCoordinatesExists) {
-    //         console.log('redirecting...');
-    //         navigate('/');
-    //     }
-    // }, [isLocationsExists, isCoordinatesExists, navigate]);
-
-
     console.log('Getting locations from local storage...')
     let locs = JSON.parse(localStorage.getItem('locations'));
     
@@ -59,8 +29,10 @@ const Details = () => {
     const [details, setDetails] = useState('off');
     const [blur, setBlur] = useState(false);
     const [fullImg, setFullImg] = useState('');
+
     useEffect(() => {
         item && item.title && (document.title = `${item.title} - My Travel Journal`);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[/*item.title*/]);
 
     const updateMap = ()=> {
@@ -200,20 +172,6 @@ const Details = () => {
         // console.log('CLICKED:', clickedImg);
         // console.log('ALL:',imgs);
     }
-    // const location = item.location.replace(/\s/g , "+");
-    // const [coordinates, setCoordinates] = useState(null);
-    
-    // useEffect(() => {
-    //     const getCoordinates = async () => {
-    //         const response = await fetch(
-    //             `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.REACT_APP_MAPS_KEY}`
-    //         );
-    //         const data = await response.json();
-    //         const { lat, lng } = data.results[0].geometry.location;
-    //         setCoordinates({ lat, lng });
-    //     };
-    //     getCoordinates();
-    // }, [location]);
 
     useEffect(() => {
         setTimeout(function(){
@@ -229,7 +187,6 @@ const Details = () => {
     //       </div>
     //     );
     //   }
-
     return (
         locations ? (
         <div className={blur ? 'details off' : 'details'} style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(${item.cover_img})`}} >
