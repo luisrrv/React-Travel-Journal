@@ -18,7 +18,7 @@ import { collection, getDocs } from 'firebase/firestore'
 function App() {
   
   const [locations, setLocations] = useState([]);
-  const [coordinates, setCoordinates] = useState(null);
+//   const [coordinates, setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
   const [loginForm, setLoginForm] = useState('off');
   const [email, setEmail] = useState('');
@@ -59,7 +59,7 @@ function App() {
         let data = await res.json();
         let coor = [location.title, [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng]]
         coors.push(coor);
-        setCoordinates(coors);
+        // setCoordinates(coors);
         localStorage.setItem('coordinates', JSON.stringify(coors));
     }
     const getCoordinates = () => {
@@ -67,9 +67,10 @@ function App() {
             locs.forEach(location => {
                 getFromAPI(location);
             })
-        } else {
-            setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
-        }
+        } 
+        // else {
+            // setCoordinates(JSON.parse(localStorage.getItem('coordinates')));
+        // }
     }
 
     handleGet();
@@ -77,7 +78,7 @@ function App() {
     if (get) {
         getLocations();
     } else if (!get) {
-        console.log('Getting locations from local storage... get:',get);
+        // console.log('Getting locations from local storage... get:',get);
         setLocations(JSON.parse(localStorage.getItem('locations')));
     }
 

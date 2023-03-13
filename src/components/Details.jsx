@@ -9,12 +9,12 @@ import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
 // const images = require.context('../../public/images', true);
 
 const Details = () => {
-    console.log('Getting locations from local storage...')
+    // console.log('Getting locations from local storage...')
     let locs = JSON.parse(localStorage.getItem('locations'));
     
     const [locations] = useState(locs);
     
-    console.log('Getting coordinates from local storage...')
+    // console.log('Getting coordinates from local storage...')
     let coors = JSON.parse(localStorage.getItem('coordinates'));
 
     const [coordinates] = useState(coors);
