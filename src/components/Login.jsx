@@ -24,7 +24,7 @@ function Login({ setEmail, setPassword, loginFormOn, handleAction, blurSet}) {
   return (
     <div className='login-form' onClick={loginFormOn} >
             <div className="heading-container">
-                <h3>Are you luisrrv ?</h3>
+                <h3>login to manage this journal</h3>
             </div>
             <ThemeProvider theme={darkTheme}>
 
