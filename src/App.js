@@ -196,8 +196,9 @@ function App() {
                 <div className='menu-btn-close'>
                     <AiFillCloseCircle onClick={openMenu} />
                 </div>
-                <p className='btn add-location' >Add location</p>
                 <p className='btn login-btn' onClick={()=>{handleLogout(); openMenu();}} >Logout</p>
+                <p className='btn add-location' >Add location</p>
+                <p className='btn locations-list-btn' >Locations</p>
             </div>
             ) : (
             <div className='menu-items'>
@@ -205,6 +206,9 @@ function App() {
                     <AiFillCloseCircle onClick={openMenu} />
                 </div>
                 <p className='btn login-btn' onClick={()=>{handleLoginForm(); blurSet(); openMenu();}} >Login</p>
+                <p className='btn locations-list-btn' >Locations</p>
+
+                {/* <a href='https://github.com/luisrrv' target='_blank' rel="noreferrer" className='menu-info'> created by luisrrv</a> */}
             </div>
             )
             }
