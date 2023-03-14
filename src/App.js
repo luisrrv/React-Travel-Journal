@@ -8,6 +8,7 @@ import Login from './components/Login'
 import Footer from './components/Footer';
 // import { BsFillPinMapFill } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
+import { FiMenu } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { app, db } from './firebase-config';
 import { ToastContainer, toast } from 'react-toastify';
@@ -103,17 +104,17 @@ function App() {
     setPassword('');
   }
   const handleAction = () => {
-  const authentication = getAuth(app);
-  if((email==='') && (password==='')) {
-    toast.error('Please check your email/password');
-    return;
-  }
+    const authentication = getAuth(app);
+    if((email==='') && (password==='')) {
+        toast.error('Please check your email/password');
+        return;
+    }
 
-  // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
+    // createUserWithEmailAndPassword(authentication, email, password) // for creating users (unused for now)
 
     signInWithEmailAndPassword(authentication, email, password)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         toast.success('Logged in');
         navigate('/');
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
@@ -142,10 +143,16 @@ function App() {
     clearInfo();
     toast("Logged out");
     navigate('/');
-}
-const blurSet = () => {
-  (loginForm==='on') ? setBlur(false) : setBlur(true);
-}
+  }
+  const blurSet = () => {
+    (loginForm==='on') ? setBlur(false) : setBlur(true);
+  }
+  const openMenu = () => {
+    const menuBtn = document.querySelector('.menu-btn');
+    const menuItems = document.querySelector('.menu-items');
+    menuBtn && menuBtn.classList.toggle('on');
+    menuItems && menuItems.classList.toggle('on');
+  }
 
   //   getUsers();
   // }, [usersCollectionRef]);
@@ -181,14 +188,26 @@ const blurSet = () => {
         })
       }
       </section>
-      { authToken ? (
-          <p className='btn login-btn' onClick={handleLogout} >Logout</p>
-        ) : (
-          <p className='btn login-btn' onClick={()=>{handleLoginForm(); blurSet();}} >Login</p>
-        )
-
-
-      }
+      <div className='menu-btn on'>
+        <FiMenu onClick={openMenu} />
+      </div>
+        { authToken ? (
+            <div className='menu-items'>
+                <div className='menu-btn-close'>
+                    <AiFillCloseCircle onClick={openMenu} />
+                </div>
+                <p className='btn add-location' >Add location</p>
+                <p className='btn login-btn' onClick={()=>{handleLogout(); openMenu();}} >Logout</p>
+            </div>
+            ) : (
+            <div className='menu-items'>
+                <div className='menu-btn-close'>
+                    <AiFillCloseCircle onClick={openMenu} />
+                </div>
+                <p className='btn login-btn' onClick={()=>{handleLoginForm(); blurSet(); openMenu();}} >Login</p>
+            </div>
+            )
+            }
 
       <Footer />
      { loginForm==='on' && (

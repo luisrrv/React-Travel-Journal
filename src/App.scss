@@ -318,6 +318,66 @@ section {
     color: #F55A5A;
   }
 }
+.menu-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+.menu-btn.on {
+  font-size: 24px;
+  opacity: 1;
+  pointer-events: all;
+  position: absolute;
+  color: #688bcc;
+  top: 16px;
+  right: 16px;
+  transition: 200ms;
+  &:hover {
+    cursor: pointer;
+  }
+} 
+.menu-items {
+  opacity: 0;
+  pointer-events: none;
+}
+.menu-items.on {
+  opacity: 1;
+  pointer-events: all;
+  transition: 300ms;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #282C34;
+  padding: 8px;
+  padding-bottom: 22px;
+  border-radius: 8px;
+  min-width: 140px;
+  p {
+    width: 100%;
+    color: #688bcc;
+  }
+  .menu-btn-close {
+    font-size: 24px;
+    color: #688bcc;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    svg {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .login-btn {
+      color: #688bcc;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+}
 .login-form {
   position: fixed;
   display: flex;
@@ -376,12 +436,6 @@ section {
       cursor: pointer;
     }
   }
-}
-.login-btn {
-  position: absolute;
-  color: #435b89;
-  top: 16px;
-  right: 16px;
 }
 
 
