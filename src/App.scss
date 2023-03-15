@@ -338,6 +338,10 @@ section {
 .menu-items {
   opacity: 0;
   pointer-events: none;
+  transition: 400ms;
+  height: fit-content;
+  max-height: 80vh;
+  overflow: scroll;
 }
 .menu-items.on {
   opacity: 1;
@@ -352,12 +356,18 @@ section {
   align-items: center;
   background-color: #282C34;
   padding: 8px;
-  padding-bottom: 22px;
+  padding-bottom: 36px;
   border-radius: 8px;
-  min-width: 140px;
+  min-width: 260px;
   p {
     width: 100%;
     color: #688bcc;
+    &.locations-list-btn {
+      margin-bottom: 4px;
+      svg {
+        padding-top: 4px;
+      }
+    }
   }
   a {
     color: #688bcc;
@@ -380,7 +390,30 @@ section {
       &:hover {
         cursor: pointer;
       }
+  }
+  .menu-locations {
+    width: 100%;
+    opacity: 0;
+    height: 0;
+    transition: 400ms;
+    .menu-location {
+      color: #abc0e6;
+      font-size: 14px;
+      display: none;
     }
+    &.opened {
+      opacity: 1;
+      height: auto;
+      .menu-location {
+        display: block;
+        width: 100%;
+        &:hover {
+          cursor: pointer;
+          color: #688bcc;
+        }
+      }
+    }
+  }
 }
 .login-form {
   position: fixed;

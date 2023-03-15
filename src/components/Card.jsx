@@ -3,12 +3,13 @@ import { SiGooglemaps } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 
 const Card = (props) => {
+  const idName = props.item.location.replace(/\s/g , "_").toLowerCase();
   const divImage = {
     backgroundImage : `url(${props.item.cover_img})`
   };
   const style = { color: "#F55A5A", fontSize: "20px" }
   return (
-    <Link to={`/details/${props.item.my_id}`} className="card" >
+    <Link to={`/details/${props.item.my_id}`} className="card" id={idName}>
         {/* {badgeText && <div className="card--badge">{badgeText}</div>} */}
         <div style={divImage} className="card--image" />
         <div className="card--stats">
