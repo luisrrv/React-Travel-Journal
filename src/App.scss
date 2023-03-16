@@ -339,11 +339,12 @@ section {
   opacity: 0;
   pointer-events: none;
   transition: 400ms;
-  height: fit-content;
+  height: 0;
   max-height: 80vh;
   overflow: scroll;
 }
 .menu-items.on {
+  height: fit-content;
   opacity: 1;
   pointer-events: all;
   transition: 300ms;
