@@ -8,7 +8,7 @@ import Login from './components/Login'
 import Footer from './components/Footer';
 // import { BsFillPinMapFill } from 'react-icons/bs'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import { BsChevronDown } from 'react-icons/bs'
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { app, db } from './firebase-config';
@@ -161,6 +161,10 @@ function App() {
   const pageNavigate = (idName) => {
     document.getElementById(idName).scrollIntoView();
   }
+  const [accordionOpen, setAccordionOpen] = useState(false);
+  const handleAccordionOpen = () => {
+    accordionOpen ? setAccordionOpen(false) : setAccordionOpen(true);
+  }
   //   getUsers();
   // }, [usersCollectionRef]);
   return (
@@ -205,7 +209,7 @@ function App() {
                 </div>
                 <p className='btn login-btn' onClick={()=>{handleLogout(); openMenu();}} >Logout</p>
                 <p className='btn add-location' >Add location</p>
-                <p className='btn locations-list-btn' onClick={openList} >Locations <BsChevronDown /></p>
+                <p className='btn locations-list-btn' onClick={() => {openList(); handleAccordionOpen();}} >Locations {accordionOpen ? <BsChevronUp /> : <BsChevronDown />}</p>
                 <div className='menu-locations'>
                 {
                     locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map((location)=>{
@@ -221,9 +225,15 @@ function App() {
                     <AiFillCloseCircle onClick={openMenu} />
                 </div>
                 <p className='btn login-btn' onClick={()=>{handleLoginForm(); blurSet(); openMenu();}} >Login</p>
-                <p className='btn locations-list-btn' onClick={openList} >Locations</p>
-
-                {/* <a href='https://github.com/luisrrv' target='_blank' rel="noreferrer" className='menu-info'> created by luisrrv</a> */}
+                <p className='btn locations-list-btn' onClick={() => {openList(); handleAccordionOpen();}} >Locations {accordionOpen ? <BsChevronUp /> : <BsChevronDown />}</p>
+                <div className='menu-locations'>
+                {
+                    locations && locations.sort((a,b)=> (a.my_id < b.my_id ? 1 : -1)).map((location)=>{
+                        const idName = location.location.replace(/\s/g , "_").toLowerCase();
+                        return <p className='menu-location' key={location.title} onClick={()=>{pageNavigate(idName); openMenu();}}>{location.title}</p>
+                    })
+                }
+                </div>
             </div>
             )
             }
