@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-// import Footer from './Footer';
-// import Data from '../Data';
+// import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 import Map from './Map';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { CgCloseO } from 'react-icons/cg'
