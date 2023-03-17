@@ -475,6 +475,12 @@ section {
     }
   }
 }
+.location-form {
+  form {
+    max-height: 60vh;
+    overflow: scroll;
+  }
+}
 
 
 /* ====================================DETAILS PAGE====================================== */

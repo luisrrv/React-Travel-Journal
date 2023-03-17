@@ -16,6 +16,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, getDocs } from 'firebase/firestore'
+import LocationForm from './components/LocationForm';
 // import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 //   const [coordinates, setCoordinates] = useState(null);
   const [get, setGet] = useState(false);
   const [loginForm, setLoginForm] = useState('off');
+  const [locationForm, setLocationForm] = useState('off');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   const [blur, setBlur] = useState(false);
@@ -137,8 +139,14 @@ function App() {
   const handleLoginForm = ()=> {
     loginForm==='off' ? setLoginForm('on') : setLoginForm('off');
   }
+  const handleLocationForm = ()=> {
+    locationForm==='off' ? setLocationForm('on') : setLocationForm('off');
+  }
   const loginFormOn = ()=> {
     setLoginForm('on');
+  }
+  const locationFormOn = ()=> {
+    setLocationForm('on');
   }
   const handleLogout = () => {
     sessionStorage.removeItem('Auth Token');
@@ -147,7 +155,7 @@ function App() {
     navigate('/');
   }
   const blurSet = () => {
-    (loginForm==='on') ? setBlur(false) : setBlur(true);
+    ((loginForm==='on') || locationForm==='on') ? setBlur(false) : setBlur(true);
   }
   const openMenu = () => {
     const menuBtn = document.querySelector('.menu-btn');
@@ -166,6 +174,7 @@ function App() {
   const handleAccordionOpen = () => {
     accordionOpen ? setAccordionOpen(false) : setAccordionOpen(true);
   }
+  const newId = JSON.parse(localStorage.getItem('locations')).length + 1;
   //   getUsers();
   // }, [usersCollectionRef]);
   return (
@@ -209,7 +218,7 @@ function App() {
                     <AiFillCloseCircle onClick={openMenu} />
                 </div>
                 <p className='btn login-btn' onClick={()=>{handleLogout(); openMenu();}} >Logout</p>
-                <p className='btn add-location' >Add location</p>
+                <p className='btn add-location' onClick={handleLocationForm}>Add location</p>
                 <p className='btn locations-list-btn' onClick={() => {openList(); handleAccordionOpen();}} >Locations {accordionOpen ? <BsChevronUp /> : <BsChevronDown />}</p>
                 <div className='menu-locations'>
                 {
@@ -256,6 +265,23 @@ function App() {
               />
         </div>
       )
+    }
+    {
+         locationForm==='on' && (
+        <div>
+          <div onClick={()=>{handleLocationForm(); blurSet();}} className='popup-back'>
+            <div onClick={()=>{handleLocationForm(); blurSet();}} className='x btn'><AiFillCloseCircle/></div>
+          </div>
+            <LocationForm
+              locationFormOn={() => locationFormOn()}
+              blurSet={()=> blurSet()}
+              className="Login popup"
+              popup={loginForm}
+              db={db}
+              newId={newId}
+              />
+        </div>
+         )
      }
     </div>
   );
