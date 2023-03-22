@@ -473,6 +473,9 @@ section {
       background-color: #fb7a7a;
       cursor: pointer;
     }
+    &.add-location-btn {
+      margin-top: 20px;
+    }
   }
 }
 .location-form {
@@ -480,6 +483,11 @@ section {
     max-height: 60vh;
     overflow: scroll;
   }
+}
+.css-sghohy-MuiButtonBase-root-MuiButton-root.Mui-disabled {
+  color: #ffffff61 !important;
+  background-color: #f55a5a28 !important;
+  // opacity: 0.4;
 }
 
 
