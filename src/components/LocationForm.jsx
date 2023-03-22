@@ -22,8 +22,8 @@ function LocationForm({locationFormOn, blurSet, db, newId}) {
   const [pics, setPics] = useState(['','','','','','','','','','']);
   const [piptN, setPiptN] = useState(1);
   
-    console.log(allLocations);
   const iptsCheck = () => {
+    setDates({start: dateStart, end: dateEnd});
     const ipts = document.querySelectorAll('input');
     let filled = 0;
     ipts.forEach(ipt=>{
@@ -49,7 +49,6 @@ function LocationForm({locationFormOn, blurSet, db, newId}) {
   }
   
   const createLocation = async () => {
-      setDates({start: dateStart, end: dateEnd});
       const picsTaken = []; 
       pics.forEach(e=>{
         e!=='' && picsTaken.push(e);
@@ -64,8 +63,13 @@ function LocationForm({locationFormOn, blurSet, db, newId}) {
           pics: picsTaken,
         })
         const data = await getDocs(usersCollectionRef);
-        console.log(data);
         setAllLocations(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+        console.log(allLocations);
+        alert("New location added to your journal");
+        setTimeout(()=>{
+            localStorage.clear();
+            window.location.reload();
+        },2000);
     };
         
   const handleClick = () => {

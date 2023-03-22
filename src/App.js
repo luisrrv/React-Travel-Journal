@@ -174,7 +174,7 @@ function App() {
   const handleAccordionOpen = () => {
     accordionOpen ? setAccordionOpen(false) : setAccordionOpen(true);
   }
-  const newId = JSON.parse(localStorage.getItem('locations')).length + 1;
+  const newId = localStorage.getItem('locations') ? JSON.parse(localStorage.getItem('locations')).length + 1 : 1;
   //   getUsers();
   // }, [usersCollectionRef]);
   return (
