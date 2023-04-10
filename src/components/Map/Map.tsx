@@ -1,6 +1,7 @@
 
+import * as React from 'react';
 import { GoogleMap, MarkerF } from '@react-google-maps/api';
-import { React, useState } from 'react';
+import { useState } from 'react';
 
 const Map = (props) => {
     const data = JSON.parse(localStorage.getItem('locations'));
@@ -58,7 +59,7 @@ const Map = (props) => {
                             url:(location.cover_img),
                             scaledSize: new window.google.maps.Size(50, 50),
                             labelOrigin: new window.google.maps.Point(25, -10),
-                            className: 'map-marker',
+                            // className: 'map-marker',
                         }}
                         // label={{
                         //     text: location.title, 

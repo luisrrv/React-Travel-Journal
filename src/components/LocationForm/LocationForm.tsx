@@ -15,7 +15,7 @@ function LocationForm({locationFormOn, blurSet, db, newId}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [coverImg, setCoverImg] = useState('');
-  const [dates, setDates] = useState('');
+  const [dates, setDates] = useState({});
   const [dateStart, setDateStart] = useState('');
   const [dateEnd, setDateEnd] = useState('');
   const [location, setLocation] = useState('');

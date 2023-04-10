@@ -1,6 +1,5 @@
 import React from 'react'
 import { AiOutlineDown } from 'react-icons/ai';
-// import grid from '../images/photo-grid.png'
 
 const Hero = () => {
 
