@@ -1,11 +1,11 @@
-import { React, useEffect, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 // import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore'
-import Map from './Map';
+import Map from '../Map/Map';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { CgCloseO } from 'react-icons/cg'
 import { HiChevronDoubleRight, HiChevronDoubleLeft } from 'react-icons/hi'
-// const images = require.context('../../public/images', true);
 
 const Details = () => {
     // console.log('Getting locations from local storage...')
@@ -35,7 +35,12 @@ const Details = () => {
     },[/*item.title*/]);
 
     const updateMap = ()=> {
-        map==='off' ? setMap('on') && setDetails('off') : setMap('off');
+        if (map==='off') { 
+            setMap('on') 
+            setDetails('off') 
+        } else {
+            setMap('off');
+        }
         details==='on' && setDetails('off');
     }
     const closeMap = ()=> {
@@ -208,30 +213,30 @@ const Details = () => {
                             <div className="pics-title">pics taken <HiChevronDoubleRight /></div>
                             {windowWidth < 700 && (
                                 <div className="pics">
-                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.cover_img})`}} alt="selfie" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.cover_img})`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} />
                                 </div>
                                 )}
                             {windowWidth >= 700 && (
                                 <div className="pics">
-                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.cover_img})`}} alt="selfie" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
-                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} alt="selfie" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} alt="majestic" />
-                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} alt="lizzard" />
+                                        <div className={`img on`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(${item.cover_img})`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} />
+                                        <div className={`img off`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://www.boredpanda.com/blog/wp-content/uploads/2016/01/manny-cat-takes-selfies-dogs-gopro-9.jpg)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://i.pinimg.com/originals/f3/9b/49/f39b499a328dbba5a5f63671250b4f5c.png)`}} />
+                                        <div className={`img`} onClick={(e)=>{handleImages(e)}} style={{backgroundImage:`url(https://preview.redd.it/u6ckdfs0jto11.jpg?width=640&crop=smart&auto=webp&s=585c61f7d764906f2af3f4c91ab5ab53b69ad88f)`}} />
                                 </div>
                                 )}
                             <div className="pics-title end"><HiChevronDoubleLeft /> during the trip</div>
@@ -248,7 +253,7 @@ const Details = () => {
                                 <Map coordinates={coordinates} title={item.title} cover_img={item.cover_img}/>
                             </div>
                             </div>)}
-                        { details==='on' && <div className="popup details">{item.description}<div onClick={()=>{detailsOff(); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
+                        { details==='on' && <div className="popup details">{item.description}<div onClick={(e)=>{detailsOff(e); blurSet();}} className='x'><AiFillCloseCircle/></div></div> }
                         {/* <Footer /> */}
             <div className="img-full-bg"></div>
             <div className="img-full" onClick={fullScreenImg} style={{backgroundImage:`url(${fullImg})`}}></div>

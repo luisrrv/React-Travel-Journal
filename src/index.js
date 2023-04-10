@@ -1,14 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import Details from "./components/Details";
+import Details from "./components/Details/Details";
 import { LoadScript } from '@react-google-maps/api';
-// import Redirect from './components/Redirect';
 import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css';
 
 const router = createBrowserRouter([
@@ -29,7 +25,6 @@ const router = createBrowserRouter([
     element: <App />,
   },
 ]);
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
